@@ -1,0 +1,2 @@
+#USER
+USER_TYPE_RANGE = 0..2
