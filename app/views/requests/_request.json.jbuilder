@@ -1,0 +1,1 @@
+json.extract! request, :student, :tutor

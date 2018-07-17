@@ -65,24 +65,24 @@ class UsersController < ApplicationController
                render status: :unprocessable_entity, json: {errors: @tutor.errors.full_messages}
             end
         elsif params[:role] == 0 && @user.role.nil?
-          @student = @user.build_student(student_params)
-            if @student.save
-              render status: :created, template: "users/show"
-            else
-              render status: :unprocessable_entity, json: {errors: @student.errors.full_messages}
-            end  
+            @student = @user.build_student(student_params)
+              if @student.save
+                render status: :created, template: "users/show"
+              else
+                render status: :unprocessable_entity, json: {errors: @student.errors.full_messages}
+              end  
         elsif params[:role] == 2 
-          @student = @user.build_student(student_params)
-            if @student.save
-            else
-              render status: :unprocessable_entity, json: {errors: @student.errors.full_messages}
-            end
-          @tutor = @user.build_tutor(tutor_params)
-            if @tutor.save
-              render status: :created, template: "users/show"
-            else
-               render status: :unprocessable_entity, json: {errors: @tutor.errors.full_messages}
-            end   
+            @student = @user.build_student(student_params)
+              if @student.save
+              else
+                render status: :unprocessable_entity, json: {errors: @student.errors.full_messages}
+              end
+            @tutor = @user.build_tutor(tutor_params)
+              if @tutor.save
+                render status: :created, template: "users/show"
+              else
+                 render status: :unprocessable_entity, json: {errors: @tutor.errors.full_messages}
+              end   
         end
       else
       render :show, status: :ok, location: @user  

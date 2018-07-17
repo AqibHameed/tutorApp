@@ -31,3 +31,7 @@
 
 en:
   hello: "Hello world"
+students:
+  error:
+    Tutor_ID_not_found: "Make sure to enter the tutor ID"
+    Subject_ID_not_found: "Make sure to enter the student ID"
