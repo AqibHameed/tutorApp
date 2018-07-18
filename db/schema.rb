@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_17_131632) do
+ActiveRecord::Schema.define(version: 2018_07_18_125854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "admins", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.bigint "tutor_id"
+    t.bigint "subject_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_jobs_on_subject_id"
+    t.index ["tutor_id"], name: "index_jobs_on_tutor_id"
+  end
 
   create_table "requests", force: :cascade do |t|
     t.boolean "status", default: false
@@ -22,6 +38,7 @@ ActiveRecord::Schema.define(version: 2018_07_17_131632) do
     t.bigint "subject_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "acceptance", default: false
     t.index ["student_id"], name: "index_requests_on_student_id"
     t.index ["subject_id"], name: "index_requests_on_subject_id"
     t.index ["tutor_id"], name: "index_requests_on_tutor_id"
@@ -41,6 +58,16 @@ ActiveRecord::Schema.define(version: 2018_07_17_131632) do
     t.integer "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "approved", default: true
+  end
+
+  create_table "subjects_tutors", id: false, force: :cascade do |t|
+    t.bigint "subject_id"
+    t.bigint "tutor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_subjects_tutors_on_subject_id"
+    t.index ["tutor_id"], name: "index_subjects_tutors_on_tutor_id"
   end
 
   create_table "tutors", force: :cascade do |t|
@@ -61,6 +88,8 @@ ActiveRecord::Schema.define(version: 2018_07_17_131632) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "jobs", "subjects"
+  add_foreign_key "jobs", "tutors"
   add_foreign_key "requests", "students"
   add_foreign_key "requests", "subjects"
   add_foreign_key "requests", "tutors"

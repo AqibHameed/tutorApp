@@ -15,7 +15,18 @@ class UsersController < ApplicationController
     if @user.save
       if params[:role].present?
         if params[:role] == 1
-          @tutor = @user.build_tutor(tutor_params)
+          unless params[:subjects].nil?
+            @tutor = @user.build_tutor(tutor_params)
+            @subject_from_user = params[:subjects]
+            @subject_from_user.each do |s|
+            @subject = Subject.new(name:s,approved:false)
+              if @subject.save
+                @tutor.subjects << @subject
+              else  
+                 render status: :unprocessable_entity, json: {errors: @subject.errors.full_messages}
+              end 
+            end 
+          end  
             if @tutor.save
               render status: :created, template: "users/show"
             else
@@ -39,6 +50,18 @@ class UsersController < ApplicationController
               render status: :unprocessable_entity, json: {errors: @student.errors.full_messages}
             end
           @tutor = @user.build_tutor(tutor_params)
+            unless params[:subjects].nil?
+              @tutor = @user.build_tutor(tutor_params)
+              @subject_from_user = params[:subjects]
+              @subject_from_user.each do |s|
+              @subject = Subject.new(name:s,approved:false)
+                if @subject.save
+                  @tutor.subjects << @subject
+                else  
+                   render status: :unprocessable_entity, json: {errors: @subject.errors.full_messages}
+                end 
+              end 
+            end  
             if @tutor.save
               render status: :created, template: "users/show"
             else
@@ -59,6 +82,18 @@ class UsersController < ApplicationController
       if params[:role].present?
         if params[:role] == 1 && @user.role.nil?
           @tutor = @user.build_tutor(tutor_params)
+           unless params[:subjects].nil?
+              @tutor = @user.build_tutor(tutor_params)
+              @subject_from_user = params[:subjects]
+              @subject_from_user.each do |s|
+              @subject = Subject.new(name:s,approved:false)
+                if @subject.save
+                  @tutor.subjects << @subject
+                else  
+                   render status: :unprocessable_entity, json: {errors: @subject.errors.full_messages}
+                end 
+              end 
+           end  
             if @tutor.save
               render status: :created, template: "users/show"
             else
@@ -77,7 +112,19 @@ class UsersController < ApplicationController
               else
                 render status: :unprocessable_entity, json: {errors: @student.errors.full_messages}
               end
-            @tutor = @user.build_tutor(tutor_params)
+               @tutor = @user.build_tutor(tutor_params)
+                unless params[:subjects].nil?
+                  @tutor = @user.build_tutor(tutor_params)
+                  @subject_from_user = params[:subjects]
+                  @subject_from_user.each do |s|
+                  @subject = Subject.new(name:s,approved:false)
+                    if @subject.save
+                      @tutor.subjects << @subject
+                    else  
+                       render status: :unprocessable_entity, json: {errors: @subject.errors.full_messages}
+                    end 
+                  end 
+                end  
               if @tutor.save
                 render status: :created, template: "users/show"
               else
@@ -103,7 +150,7 @@ class UsersController < ApplicationController
     end  
 
     def tutor_params
-      params.permit(:education, :experience, :availablity)
+      params.permit(:education, :experience, :availablity ,subject_ids:[])
     end
 
     def set_user
