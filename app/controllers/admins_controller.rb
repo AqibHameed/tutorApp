@@ -1,5 +1,10 @@
 class AdminsController < ApplicationController
 
+  def first
+    render status: :ok , template: "changes/root"
+   end
+ 
+
   def pending_subjects
     @subjects = Subject.where(approved:false)
     if !@subjects.nil?

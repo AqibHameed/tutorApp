@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+root "admins#first"
   namespace :auth do
     get "/check_username",to: "registrations#check_username"
     post "/signup",to: "registrations#create"
