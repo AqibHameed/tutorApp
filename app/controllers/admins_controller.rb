@@ -40,16 +40,16 @@ class AdminsController < ApplicationController
   def assign_request
     if params[:tutor_id].present? && params[:request_id].present?
       @request = Request.find(params[:request_id])
-      #@tutor   = User.find_by(tutor_id:params[:tutor_id])
+      @tutor   = Tutor.find_by(id:params[:tutor_id])
       if @request.status == false
         @request.status = true
-        # if !@tutor.nil?
+         if !@tutor.nil?
         @request.tutor_id = params[:tutor_id]
         @request.update(tutor_id: params[:tutor_id])
         render status: :ok, template: "requests/show"
-        # else
-        #   render status: :not_found , json: {errors: "Invalid Tutor Id"} 
-        # end
+        else
+          render status: :not_found , json: {errors: "Invalid Tutor Id"}
+         end
       else
         render status: :bad_request, json: {errors: "request already assigned"}    
       end  

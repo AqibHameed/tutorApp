@@ -31,7 +31,46 @@
 
 en:
   hello: "Hello world"
-students:
-  error:
-    Tutor_ID_not_found: "Make sure to enter the tutor ID"
-    Subject_ID_not_found: "Make sure to enter the student ID"
+
+  render:
+    errors:
+      Invalid_params: "You have sent invalid parameters"
+      auth:
+        password_format_complete: "Your password must be 8 letters long, contains one capital letter and one digit. "
+        email_format: "The email provided is invalid. Please enter a valid email address."
+      session:
+        Incorrect_Password: "You have entered an incorrect Password"
+        Username_not_found: "Can not find your username"
+        sign_out: "user successfully signed_out"
+      password:
+        Incorrect_Email: "You have entered an incorrect email address"
+        Previous_Password_not_match: "You have entered an incorrect password, first enter a correct password then change it"
+        successfull: "Your password is successfully changed"
+        Email_send_successfull: "Email is sent successfully"
+      verification:
+        successfully_confirmed: "You have successfully confirmed your account"
+        successfull: "Your new password is successfully set"
+        Invalid_Pin: "You have entered an invalid pin"
+        Pin_timeout: "Your pin has expired"
+        user_already_verified: "User is already verified"
+      registration:
+        username_not_present: "You have not sent any email address"
+        username_already_taken: "Email already taken"
+        username_available: "Username is available"
+      document:
+        unauthorize_user: "document_controller: User unauthorize "
+      posts:
+        invalid_thumbId: "The provided thumnail ID does not exist."
+        thumnail_user_invalid: "This provided thumbnail Id does not belong to user"
+        thumbnail_not_added: "thumbnail ID not provided "
+        unauthorize_user: "This user is not authorize to perform this action"
+        thumbnail_invlid_update_cancel: "The provided thumbnail is invalid, update query rejected"
+      application:
+        user_not_authorize_pundit: "User is not authorized to perform this action"
+        user_blocked: "User is blocked by admin"
+        invalid_tokens: "Provided Tokens were invalid"
+        stoken_not_found: "You have sent ant Stoken with this request"
+      comments:
+        params_not_found: "Content for comment is not provided"
+      profile:
+        categories_id_not_found: "category_id not provided"

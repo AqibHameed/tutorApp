@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_18_125854) do
+ActiveRecord::Schema.define(version: 2018_07_20_142539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,11 +22,23 @@ ActiveRecord::Schema.define(version: 2018_07_18_125854) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "auths", force: :cascade do |t|
+    t.integer "status", default: 0, null: false
+    t.string "password_digest", null: false
+    t.boolean "email_verified"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_auths_on_user_id"
+  end
+
   create_table "jobs", force: :cascade do |t|
     t.bigint "tutor_id"
     t.bigint "subject_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "student_id"
+    t.index ["student_id"], name: "index_jobs_on_student_id"
     t.index ["subject_id"], name: "index_jobs_on_subject_id"
     t.index ["tutor_id"], name: "index_jobs_on_tutor_id"
   end
@@ -42,6 +54,16 @@ ActiveRecord::Schema.define(version: 2018_07_18_125854) do
     t.index ["student_id"], name: "index_requests_on_student_id"
     t.index ["subject_id"], name: "index_requests_on_subject_id"
     t.index ["tutor_id"], name: "index_requests_on_tutor_id"
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.string "stoken"
+    t.boolean "sign_in_status", default: true, null: false
+    t.datetime "last_requested_at"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
   create_table "students", force: :cascade do |t|
@@ -83,16 +105,38 @@ ActiveRecord::Schema.define(version: 2018_07_18_125854) do
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "info"
-    t.integer "role", default: 0, null: false
+    t.integer "user_type", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email", null: false
+    t.string "username", null: false
+    t.string "about"
+    t.boolean "gender", null: false
+    t.integer "user_status", default: 1
   end
 
+  create_table "verifications", force: :cascade do |t|
+    t.integer "verification_type", null: false
+    t.integer "verification_status", default: 0, null: false
+    t.string "verification_pin", null: false
+    t.boolean "validity"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_verifications_on_user_id"
+    t.index ["verification_status"], name: "index_verifications_on_verification_status"
+    t.index ["verification_type"], name: "index_verifications_on_verification_type"
+  end
+
+  add_foreign_key "auths", "users"
+  add_foreign_key "jobs", "students"
   add_foreign_key "jobs", "subjects"
   add_foreign_key "jobs", "tutors"
   add_foreign_key "requests", "students"
   add_foreign_key "requests", "subjects"
   add_foreign_key "requests", "tutors"
+  add_foreign_key "sessions", "users"
   add_foreign_key "students", "users"
   add_foreign_key "tutors", "users"
+  add_foreign_key "verifications", "users"
 end

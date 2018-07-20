@@ -1,7 +1,7 @@
 class StudentController < ApplicationController
-	before_action :set_student, only: [:create_request]
-
+	before_action :authenticate_user
   def create_request
+		@student = @current_user.student
   		if params[:subject_id].present?
   			@request = Request.new(student:@student,subject_id:params[:subject_id].to_i)
   			if @request.save
@@ -14,10 +14,13 @@ class StudentController < ApplicationController
   		end
   end
 
-  private
-
-  def set_student
-  	@student = Student.find(params[:id])
-  end
+  def check_request
+    @student = @current_user.student
+      @requests = Request.where(student:@student)
+      unless @requests.nil?
+        render status: :ok ,template: "requests/index"
+      end 
+  end  
+	
 
 end
