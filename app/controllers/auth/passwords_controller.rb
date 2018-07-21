@@ -1,6 +1,30 @@
 class Auth::PasswordsController < ApplicationController
   before_action :authenticate_user, only: [:reset]
 
+=begin
+ @apiVersion 1.0.0
+ @api {put} auth/change_password
+ @apiName Change User password
+ @apiGroup Auth
+ @apiDescription Change the User password
+ @apiParamExample {json} Request-Example:
+    {
+      "username":"a@a",
+      "password":"Password1"
+    }
+ @apiSuccessExample {json} SuccessResponse:
+   [
+      {
+        "success": "Your password is successfully changed"
+      }
+   ]
+ @apiHeaderExample {json} Header-Example:
+    {
+        "sid": "2"
+        "stoken":"wNJBYeyqHkbU"
+    }   
+=end
+
   def reset
     if params[:old_password].present? and params[:password].present? and params[:password_confirmation].present?
       if @current_user.auth.authenticate(params[:old_password].to_s)

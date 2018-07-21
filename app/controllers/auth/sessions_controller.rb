@@ -1,5 +1,36 @@
 class Auth::SessionsController < ApplicationController
   before_action :authenticate_user, only: [:destroy,:signout]
+
+
+=begin
+ @apiVersion 1.0.0
+ @api {post} auth/signin
+ @apiName User Sign IN
+ @apiGroup Auth
+ @apiDescription Sign In for user
+  @apiParamExample {json} Request-Example:
+{
+  "username":"a@a",
+  "password":"Password1"
+}
+ @apiSuccessExample {json} SuccessResponse:
+   [
+    {
+      "sid": 11,
+      "stoken": "GqLYfU8eGkaJ",
+      "user": {
+        "name": "taha",
+        "email": "a@.gm.com",
+        "username": "a@a",
+        "gender": true
+      }
+}
+   ]
+=end
+
+
+
+
   def create
     if params[:username].present? and params[:password].present?
       @user = User.find_by(username: params[:username].to_s)
@@ -22,6 +53,22 @@ class Auth::SessionsController < ApplicationController
       return render_params_not_sent
     end
   end
+
+
+
+=begin
+ @apiVersion 1.0.0
+ @api {delete} auth/signout
+ @apiName Sign Out
+ @apiGroup Auth
+ @apiDescription User Sign Out
+  @apiHeaderExample {json} Header-Example:
+    {
+        "sid": "2"
+        "stoken":"wNJBYeyqHkbU"
+    }  
+=end
+
 
   def signout
    if @current_session.update(sign_in_status: false)

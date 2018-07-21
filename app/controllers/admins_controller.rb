@@ -3,7 +3,26 @@ class AdminsController < ApplicationController
   def first
     render status: :ok , template: "changes/root"
    end
- 
+
+=begin
+ @apiVersion 1.0.0
+ @api {get} admins/pending_subjects
+ @apiName pending_subjects
+ @apiGroup Subject
+ @apiDescription Show subjects created by the teacher
+ @apiSuccessExample {json} SuccessResponse:
+   [
+  {
+    "id": 11,
+    "name": "abc",
+    "code": null,
+    "approved": false,
+    "created_at": "2018-07-18T12:16:46.464Z",
+    "updated_at": "2018-07-18T12:16:46.464Z",
+    "url": "http://localhost:3000/subjects/11.json"
+  },
+   ]
+=end
 
   def pending_subjects
     @subjects = Subject.where(approved:false)
@@ -13,6 +32,32 @@ class AdminsController < ApplicationController
       render status: :bad_request, json: {errors: "Their is no unapproved subjects for now"}
     end
   end
+
+
+=begin
+ @apiVersion 1.0.0
+ @api {put} admins/assign_requests
+ @apiName approve_subjects
+ @apiGroup Subject
+ @apiDescription approve subjects created by the teacher
+ @apiParamExample {json} Request-Example:
+  {
+  "subject_id":11,
+  "approved":"true"
+  }
+ @apiSuccessExample {json} SuccessResponse:
+   [
+  {
+    "id": 11,
+    "name": "abc",
+    "code": null,
+    "approved": false,
+    "created_at": "2018-07-18T12:16:46.464Z",
+    "updated_at": "2018-07-18T12:16:46.464Z",
+    "url": "http://localhost:3000/subjects/11.json"
+  }
+   ]
+=end
 
   def approve_subjects
     if params[:subject_id].present?
@@ -29,11 +74,43 @@ class AdminsController < ApplicationController
 
   end
 
+=begin
+ @apiVersion 1.0.0
+ @api {delete} admins/delete_subject/id
+ @apiName Deleting_subjects
+ @apiGroup Subject
+ @apiDescription delete subjects created by the teacher
+ @apiSuccessExample {json} SuccessResponse:
+   [
+    "no content"
+   ]
+=end
+
+
+
+
   def disapprove_subject
      @subject = Subject.where(id:params[:subject_id],approved:"false")
      @subject.destroy_all
   end  
 
+=begin
+ @apiVersion 1.0.0
+ @api {get} admins/pending_requests
+ @apiName pending_request
+ @apiGroup Request
+ @apiDescription Show all request sent by students
+ @apiSuccessExample {json} SuccessResponse:
+   [
+  {
+    "status": "under observation by the admin",
+    "studentname": "TAHA",
+    "studentusername": "taha10",
+    "requestID": 12,
+    "subjectName": "Java"
+  }
+   ]
+=end
 
 
   def pending_request
@@ -41,6 +118,30 @@ class AdminsController < ApplicationController
     #byebug
     render status: :ok, template: "requests/index"
   end
+
+=begin
+ @apiVersion 1.0.0
+ @api {put} admins/assign_requests
+ @apiName assign_request
+ @apiGroup Request
+ @apiDescription Show all request sent by students
+ @apiParamExample {json} Request-Example:
+    {
+      "tutor_id":21,
+      "request_id":14
+    }
+ @apiSuccessExample {json} SuccessResponse:
+   [
+  {
+    "status": "under observation by the admin",
+    "studentname": "TAHA",
+    "studentusername": "taha10",
+    "requestID": 12,
+    "subjectName": "Java"
+  }
+   ]
+=end
+
 
   def assign_request
     if params[:tutor_id].present? && params[:request_id].present?

@@ -1,4 +1,38 @@
 class Auth::RegistrationsController < ApplicationController
+
+
+
+
+=begin
+ @apiVersion 1.0.0
+ @api {post} auth/signup
+ @apiName  Sign UP
+ @apiGroup Auth
+ @apiDescription User Sign UP
+ @apiParamExample {json} Request-Example:
+  {
+  "name":"taha",
+  "email":"d@ak.com",
+  "username":"taha11",
+  "gender": true,
+  "password":"Password1",
+  "password_confirmation":"Password1"
+  }
+ @apiSuccessExample {json} SuccessResponse:
+   [
+     {
+        "sid": 1,
+        "stoken": "DRZhwFo75xJ8",
+        "user": {
+        "name": "taha",
+        "email": "d@ak.com",
+        "username": "taha11",
+        "gender": true
+        }
+      }
+   ]
+=end
+
   def create
     @user = User.new(user_params)
     if @user.save
