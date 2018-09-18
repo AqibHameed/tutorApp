@@ -22,7 +22,8 @@ class Auth::SessionsController < ApplicationController
         "name": "taha",
         "email": "a@.gm.com",
         "username": "a@a",
-        "gender": true
+        "gender": true,
+        "role":"teacher"
       }
 }
    ]
@@ -32,26 +33,39 @@ class Auth::SessionsController < ApplicationController
 
 
   def create
+
     if params[:username].present? and params[:password].present?
       @user = User.find_by(username: params[:username].to_s)
+
       if !@user.nil?
-       @auth = @user.auth
-        if @auth.authenticate(params[:password])
-          @session = @user.sessions.build
-          if @session.save
-            return render_user_sucessfully_signedin
-          else
-            return render_error_session_not_saved
-          end
-        else
-          return render_error_password_not_matched
-        end
+        #@role = @user.roles.find_by(name: params[:role])
+        #if @role.present?
+           @auth = @user.auth
+
+            if @auth.authenticate(params[:password])
+              @session = @user.sessions.build
+
+              if @session.save
+                return render_user_sucessfully_signedin
+              else
+                return render_error_session_not_saved
+              end
+
+            else
+              return render_error_password_not_matched
+            end
+        #else
+         #   return render_role_not_exist
+        #end
+
       else
         return render_error_user_does_not_exist
       end
+
     else
       return render_params_not_sent
     end
+
   end
 
 
@@ -105,4 +119,9 @@ class Auth::SessionsController < ApplicationController
   def render_params_not_sent
     render status: :unprocessable_entity, json: {errors: I18n.t('render.errors.Invalid_params')}
   end
+
+  def render_role_not_exist
+     render status: :unprocessable_entity, json: {errors: "Role is not exist"}
+  end
+
 end

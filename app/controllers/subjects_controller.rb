@@ -1,5 +1,6 @@
 class SubjectsController < ApplicationController
-  before_action :set_subject, only: [:show, :update, :destroy]
+  before_action :authenticate_user
+  before_action :set_subject, only: [:show, :update, :destroy, :sub_search]
 
 
 =begin
@@ -8,6 +9,11 @@ class SubjectsController < ApplicationController
  @apiName list of subjects
  @apiGroup Subject
  @apiDescription list of all subjects
+@apiParamExample {json} Request-Example:
+{
+  "sid":"1",
+  "stoken":"abcdfsg"
+}
  @apiSuccessExample {json} SuccessResponse:
    [
   {
@@ -29,6 +35,48 @@ class SubjectsController < ApplicationController
   def show
   end
 
+=begin
+ @apiVersion 1.0.0
+ @api {post} subjects/sub_search
+ @apiName Subject Search
+ @apiGroup Subject Search
+ @apiDescription Search for Subject
+  @apiParamExample {json} Request-Example:
+{
+  "id":"1"
+}
+ @apiSuccessExample {json} SuccessResponse:
+   [
+    {
+    "tutors": [
+        {
+            "id": 1,
+            "education": "phd",
+            "experience": "2years",
+            "availablity": "Yes"
+        },
+        {
+            "id": 2,
+            "education": "MPhil",
+            "experience": "1years",
+            "availablity": "NO"
+        }
+    ]
+}
+   ]
+=end
+  def sub_search
+     @tutors = @subject.tutors
+
+      if @tutors.present?
+          return render_show_tutors
+      else
+          return render_tutors_not_exist
+      end
+
+
+  end
+
   private
     def set_subject
       @subject = Subject.find(params[:id])
@@ -36,5 +84,13 @@ class SubjectsController < ApplicationController
 
     def subject_params
       params.require(:subject).permit(:name, :code)
+    end
+
+    def render_show_tutors
+       render status: :ok, template: "subjects/sub_search"
+    end
+
+    def render_tutors_not_exist
+       render status: :ok, json: {success: "Tutor not exist"}
     end
 end

@@ -3,6 +3,37 @@ class TutorController < ApplicationController
 
 =begin
  @apiVersion 1.0.0
+ @api {get} tutors
+ @apiName list of tutors
+ @apiGroup Tutor
+ @apiDescription list of all tutors
+@apiParamExample {json} Request-Example:
+{
+  "sid":"1",
+  "stoken":"abcdfsg"
+}
+ @apiSuccessExample {json} SuccessResponse:
+   [
+  [
+    {
+        "id": 1,
+        "education": "phd",
+        "experience": "2years",
+        "availablity": "Yes",
+        "created_at": "2018-09-18T13:46:26.734Z",
+        "updated_at": "2018-09-18T13:46:26.734Z",
+        "url": "http://localhost:3000/tutor.json"
+    }
+]
+   ]
+=end
+
+	def index
+      @tutors = Tutor.all
+	end
+
+=begin
+ @apiVersion 1.0.0
  @api {get} tutor/my_requests
  @apiName tutor check request
  @apiGroup Request
