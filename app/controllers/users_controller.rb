@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show]
-  before_action :authenticate_user ,only: [:updated]
+  before_action :authenticate_user ,only: [:show, :updated]
 
 =begin
  @apiVersion 1.0.0
@@ -32,23 +32,36 @@ class UsersController < ApplicationController
  @apiName user profile
  @apiGroup Users
  @apiDescription user profile
+@apiParamExample {json} Request-Example:
+{
+  "sid":"1",
+  "stoken":"abcdfsg"
+}
  @apiSuccessExample {json} SuccessResponse:
    [
   {
-    "id": 1,
-    "name": "TAHA Updated",
-    "info": null,
-    "role": 0,
-    "created_at": "2018-07-17T10:46:04.834Z",
-    "updated_at": "2018-07-17T10:47:14.749Z",
-    "url": "http://localhost:3000/users/1.json"
-  }
+    "sid": 7,
+    "stoken": "FJd2JQGc9GsP",
+    "user": {
+        "name": "talha",
+        "email": "talha@gmail.com",
+        "username": "talha11",
+        "gender": true,
+        "role": "teacher"
+    }
+}
    ]
 =end
 
 
 
   def show
+
+    if @user.user_type == 1
+        @tutor = @user.tutor
+    elsif @user.user_type == 0
+        @student = @user.student
+    end
 
   end
 

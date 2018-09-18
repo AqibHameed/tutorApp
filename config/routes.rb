@@ -20,9 +20,14 @@ root "admins#first"
   get "/admins/pending_subjects" ,to: "admins#pending_subjects"
   put "/admins/approve_subject"  ,to: "admins#approve_subjects"
   delete "/admins/delete_subject/:subject_id",to: "admins#disapprove_subject"
-  resources :subjects, only: [:index,:show]
+  resources :subjects, only: [:index,:show] do
+    collection do
+      get 'sub_search'
+    end
+  end
   post "/students/create_request",to: "student#create_request"
   get  "/students/pending_requests",to:"student#check_request"
+  get "/tutor", to: "tutor#index"
   put  "/tutor/request_approve",to: "tutor#approve_requests"
   get  "/tutor/my_requests",to:"tutor#check_requests"
   resources :users , except: [:create,:destroy,:update]

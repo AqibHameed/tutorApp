@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  #rolify
   #associations
   has_one :auth , dependent: :destroy
   has_one :tutor , dependent: :destroy

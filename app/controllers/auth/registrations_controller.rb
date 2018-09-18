@@ -34,23 +34,34 @@ class Auth::RegistrationsController < ApplicationController
 =end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
-      @auth = @user.build_auth(auth_params) #bcz of 1 -to -1 relation we write build_auth
-      if @auth.save
-        @session = @user.sessions.build
-        if @session.save
-         return render_user_successfully_created
-        else
-         return render_error_session_not_saved
-        end
+    #if params[:role].present?
+      @user = User.new(user_params)
+
+      if @user.save
+          @auth = @user.build_auth(auth_params) #bcz of 1 -to -1 relation we write build_auth
+
+          if @auth.save
+            @session = @user.sessions.build
+
+            if @session.save
+               #@user.add_role params[:role]
+               return render_user_successfully_created
+            else
+             return render_error_session_not_saved
+            end
+
+          else
+            @user.destroy
+            return render_error_auth_not_saved
+          end
+
       else
-        @user.destroy
-        return render_error_auth_not_saved
+        return render_error_user_not_saved
       end
-    else
-      return render_error_user_not_saved
-    end
+    #else
+    #    return render_error_role_not_found
+    #end
+
   end
 
  def check_username
@@ -99,6 +110,10 @@ class Auth::RegistrationsController < ApplicationController
 
   def render_error_session_not_saved
     render status: :unprocessable_entity, json: {errors: @session.errors.full_messages}
+  end
+
+  def render_error_role_not_found
+    render status: :unprocessable_entity, json: {errors: "Role should not be blank"}
   end
 
 
