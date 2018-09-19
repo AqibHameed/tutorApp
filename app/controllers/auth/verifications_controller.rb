@@ -1,4 +1,4 @@
-class Auth::VerificationsController < ApplicationController
+class Auth::VerificationsController < ApiControllerController
   before_action :authenticate_user, only: [:validate,:new_pin]
   def validate
     #@current_user = User.find(params[:id])

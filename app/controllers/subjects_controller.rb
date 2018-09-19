@@ -1,4 +1,4 @@
-class SubjectsController < ApplicationController
+class SubjectsController < ApiControllerController
   before_action :authenticate_user
   before_action :set_subject, only: [:show, :update, :destroy, :sub_search]
 

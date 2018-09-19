@@ -1,4 +1,4 @@
-class AdminsController < ApplicationController
+class AdminsController < ApiControllerController
 
   def first
     render status: :ok , template: "changes/root"

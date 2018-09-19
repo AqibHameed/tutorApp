@@ -1,4 +1,4 @@
-class Auth::RegistrationsController < ApplicationController
+class Auth::RegistrationsController < ApiControllerController
 
 
 
@@ -34,6 +34,7 @@ class Auth::RegistrationsController < ApplicationController
 =end
 
   def create
+
     #if params[:role].present?
       @user = User.new(user_params)
 

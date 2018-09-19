@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+ActiveAdmin.routes(self)
 root "admins#first"
   namespace :auth do
     get "/check_username",to: "registrations#check_username"

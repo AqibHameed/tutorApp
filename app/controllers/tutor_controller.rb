@@ -1,4 +1,4 @@
-class TutorController < ApplicationController
+class TutorController < ApiControllerController
 	before_action :authenticate_user
 
 =begin

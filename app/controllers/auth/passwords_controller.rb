@@ -1,4 +1,4 @@
-class Auth::PasswordsController < ApplicationController
+class Auth::PasswordsController < ApiControllerController
   before_action :authenticate_user, only: [:reset]
 
 =begin

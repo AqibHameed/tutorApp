@@ -1,4 +1,7 @@
-class ApplicationController < ActionController::API
+class ApplicationController < ActionController::Base
+
+  include ActionView::Layouts
+
   def authenticate_user
     if request.headers['sid'].present? and request.headers['stoken'].present?
       session = Session.find_by(id: request.headers['sid'].to_i, stoken: request.headers['stoken'].to_s, sign_in_status: true)
