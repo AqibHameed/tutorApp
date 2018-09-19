@@ -1,1 +1,620 @@
-define({ "api": [  {    "version": "1.0.0",    "type": "put",    "url": "auth/change_password",    "title": "",    "name": "Change_User_password",    "group": "Auth",    "description": "<p>Change the User password</p>",    "parameter": {      "examples": [        {          "title": "Request-Example:",          "content": "{\n  \"username\":\"a@a\",\n  \"password\":\"Password1\"\n}",          "type": "json"        }      ]    },    "success": {      "examples": [        {          "title": "SuccessResponse:",          "content": "[\n   {\n     \"success\": \"Your password is successfully changed\"\n   }\n]",          "type": "json"        }      ]    },    "header": {      "examples": [        {          "title": "Header-Example:",          "content": "{\n    \"sid\": \"2\"\n    \"stoken\":\"wNJBYeyqHkbU\"\n}",          "type": "json"        }      ]    },    "filename": "app/controllers/auth/passwords_controller.rb",    "groupTitle": "Auth"  },  {    "version": "1.0.0",    "type": "delete",    "url": "auth/signout",    "title": "",    "name": "Sign_Out",    "group": "Auth",    "description": "<p>User Sign Out</p>",    "header": {      "examples": [        {          "title": "Header-Example:",          "content": "{\n    \"sid\": \"2\"\n    \"stoken\":\"wNJBYeyqHkbU\"\n}",          "type": "json"        }      ]    },    "filename": "app/controllers/auth/sessions_controller.rb",    "groupTitle": "Auth"  },  {    "version": "1.0.0",    "type": "post",    "url": "auth/signup",    "title": "",    "name": "Sign_UP",    "group": "Auth",    "description": "<p>User Sign UP</p>",    "parameter": {      "examples": [        {          "title": "Request-Example:",          "content": "{\n\"name\":\"taha\",\n\"email\":\"d@ak.com\",\n\"username\":\"taha11\",\n\"gender\": true,\n\"password\":\"Password1\",\n\"password_confirmation\":\"Password1\"\n}",          "type": "json"        }      ]    },    "success": {      "examples": [        {          "title": "SuccessResponse:",          "content": "[\n  {\n     \"sid\": 1,\n     \"stoken\": \"DRZhwFo75xJ8\",\n     \"user\": {\n     \"name\": \"taha\",\n     \"email\": \"d@ak.com\",\n     \"username\": \"taha11\",\n     \"gender\": true\n     }\n   }\n]",          "type": "json"        }      ]    },    "filename": "app/controllers/auth/registrations_controller.rb",    "groupTitle": "Auth"  },  {    "version": "1.0.0",    "type": "post",    "url": "auth/signin",    "title": "",    "name": "User_Sign_IN",    "group": "Auth",    "description": "<p>Sign In for user</p>",    "parameter": {      "examples": [        {          "title": "Request-Example:",          "content": "{\n  \"username\":\"a@a\",\n  \"password\":\"Password1\"\n}",          "type": "json"        }      ]    },    "success": {      "examples": [        {          "title": "SuccessResponse:",          "content": "   [\n    {\n      \"sid\": 11,\n      \"stoken\": \"GqLYfU8eGkaJ\",\n      \"user\": {\n        \"name\": \"taha\",\n        \"email\": \"a@.gm.com\",\n        \"username\": \"a@a\",\n        \"gender\": true\n      }\n}\n   ]",          "type": "json"        }      ]    },    "filename": "app/controllers/auth/sessions_controller.rb",    "groupTitle": "Auth"  },  {    "version": "1.0.0",    "type": "get",    "url": "auth/validate",    "title": "",    "name": "Validate",    "group": "Auth",    "description": "<p>check that tokens are valid or not</p>",    "header": {      "examples": [        {          "title": "Header-Example:",          "content": "{\n    \"sid\": \"2\"\n    \"stoken\":\"wNJBYeyqHkbU\"\n}",          "type": "json"        }      ]    },    "success": {      "examples": [        {          "title": "SuccessResponse:",          "content": "[\n        {\n     \"user\": {\n       \"name\": \"TAHA\",\n       \"email\": \"d@aj.com\",\n       \"username\": \"taha10\",\n       \"gender\": true,\n       \"student\": {\n         \"id\": 13,\n         \"price\": 3,\n         \"timing\": null,\n         \"user_id\": 41,\n         \"created_at\": \"2018-07-20T13:47:22.873Z\",\n         \"updated_at\": \"2018-07-20T13:47:22.873Z\"\n       }\n     }\n   }   \n ]",          "type": "json"        }      ]    },    "filename": "app/controllers/auth/token_validations_controller.rb",    "groupTitle": "Auth"  },  {    "version": "1.0.0",    "type": "put",    "url": "admins/assign_requests",    "title": "",    "name": "assign_request",    "group": "Request",    "description": "<p>Show all request sent by students</p>",    "parameter": {      "examples": [        {          "title": "Request-Example:",          "content": "{\n  \"tutor_id\":21,\n  \"request_id\":14\n}",          "type": "json"        }      ]    },    "success": {      "examples": [        {          "title": "SuccessResponse:",          "content": " [\n{\n  \"status\": \"under observation by the admin\",\n  \"studentname\": \"TAHA\",\n  \"studentusername\": \"taha10\",\n  \"requestID\": 12,\n  \"subjectName\": \"Java\"\n}\n ]",          "type": "json"        }      ]    },    "filename": "app/controllers/admins_controller.rb",    "groupTitle": "Request"  },  {    "version": "1.0.0",    "type": "get",    "url": "students/pending_requests",    "title": "",    "name": "check_request",    "group": "Request",    "description": "<p>Student check his request status</p>",    "parameter": {      "examples": [        {          "title": "Request-Example:",          "content": "{\n\"subject_id\":4\n}",          "type": "json"        }      ]    },    "success": {      "examples": [        {          "title": "SuccessResponse:",          "content": " [\n{\n  \"status\": \"under observation by the admin\",\n  \"studentname\": \"TAHA\",\n  \"studentusername\": \"taha10\",\n  \"requestID\": 14,\n  \"subjectName\": \"Java\"\n}\n ]",          "type": "json"        }      ]    },    "header": {      "examples": [        {          "title": "Header-Example:",          "content": "{\n    \"sid\": \"1\"\n    \"stoken\":\"wNJBYeyqHkbU\"\n}",          "type": "json"        }      ]    },    "filename": "app/controllers/student_controller.rb",    "groupTitle": "Request"  },  {    "version": "1.0.0",    "type": "post",    "url": "students/create_request",    "title": "",    "name": "create_request",    "group": "Request",    "description": "<p>Student request for a particular subject</p>",    "parameter": {      "examples": [        {          "title": "Request-Example:",          "content": "{\n\"subject_id\":4\n}",          "type": "json"        }      ]    },    "success": {      "examples": [        {          "title": "SuccessResponse:",          "content": " [\n{\n  \"status\": \"under observation by the admin\",\n  \"studentname\": \"TAHA\",\n  \"studentusername\": \"taha10\",\n  \"requestID\": 14,\n  \"subjectName\": \"Java\"\n}\n ]",          "type": "json"        }      ]    },    "header": {      "examples": [        {          "title": "Header-Example:",          "content": "{\n    \"sid\": \"1\"\n    \"stoken\":\"wNJBYeyqHkbU\"\n}",          "type": "json"        }      ]    },    "filename": "app/controllers/student_controller.rb",    "groupTitle": "Request"  },  {    "version": "1.0.0",    "type": "get",    "url": "admins/pending_requests",    "title": "",    "name": "pending_request",    "group": "Request",    "description": "<p>Show all request sent by students</p>",    "success": {      "examples": [        {          "title": "SuccessResponse:",          "content": " [\n{\n  \"status\": \"under observation by the admin\",\n  \"studentname\": \"TAHA\",\n  \"studentusername\": \"taha10\",\n  \"requestID\": 12,\n  \"subjectName\": \"Java\"\n}\n ]",          "type": "json"        }      ]    },    "filename": "app/controllers/admins_controller.rb",    "groupTitle": "Request"  },  {    "version": "1.0.0",    "type": "put",    "url": "tutor/request_approve",    "title": "",    "name": "tutor_approves_student_request",    "group": "Request",    "description": "<p>Tutor acepts the jobs assigned by the admin</p>",    "parameter": {      "examples": [        {          "title": "Request-Example:",          "content": "{\n\"request_id\":14\n}",          "type": "json"        }      ]    },    "success": {      "examples": [        {          "title": "SuccessResponse:",          "content": "   [\n\t{\n\t\t\"status\": \"sent to a suitable teacher\",\n\t\t\"tutor\": \"The tutor has not accepted the request\",\n\t\t\"studentname\": \"TAHA\",\n\t\t\"studentusername\": \"taha10\",\n\t\t\"requestID\": 14,\n\t\t\"subjectName\": \"Java\",\n\t\t\"tutorName\": \"taha\",\n\t\t\"tutorEducation\": \"abc\",\n\t\t\"tutorExperience\": \"1-2 years\"\n\t}\n   ]",          "type": "json"        }      ]    },    "header": {      "examples": [        {          "title": "Header-Example:",          "content": "{\n    \"sid\": \"2\"\n    \"stoken\":\"wNJBYeyqHkbU\"\n}",          "type": "json"        }      ]    },    "filename": "app/controllers/tutor_controller.rb",    "groupTitle": "Request"  },  {    "version": "1.0.0",    "type": "get",    "url": "tutor/my_requests",    "title": "",    "name": "tutor_check_request",    "group": "Request",    "description": "<p>Tutor checks his lists of request</p>",    "success": {      "examples": [        {          "title": "SuccessResponse:",          "content": "   [\n\t{\n\t\t\"status\": \"sent to a suitable teacher\",\n\t\t\"tutor\": \"The tutor has not accepted the request\",\n\t\t\"studentname\": \"TAHA\",\n\t\t\"studentusername\": \"taha10\",\n\t\t\"requestID\": 14,\n\t\t\"subjectName\": \"Java\",\n\t\t\"tutorName\": \"taha\",\n\t\t\"tutorEducation\": \"abc\",\n\t\t\"tutorExperience\": \"1-2 years\"\n\t}\n   ]",          "type": "json"        }      ]    },    "header": {      "examples": [        {          "title": "Header-Example:",          "content": "{\n    \"sid\": \"2\"\n    \"stoken\":\"wNJBYeyqHkbU\"\n}",          "type": "json"        }      ]    },    "filename": "app/controllers/tutor_controller.rb",    "groupTitle": "Request"  },  {    "version": "1.0.0",    "type": "delete",    "url": "admins/delete_subject/id",    "title": "",    "name": "Deleting_subjects",    "group": "Subject",    "description": "<p>delete subjects created by the teacher</p>",    "success": {      "examples": [        {          "title": "SuccessResponse:",          "content": "[\n \"no content\"\n]",          "type": "json"        }      ]    },    "filename": "app/controllers/admins_controller.rb",    "groupTitle": "Subject"  },  {    "version": "1.0.0",    "type": "put",    "url": "admins/assign_requests",    "title": "",    "name": "approve_subjects",    "group": "Subject",    "description": "<p>approve subjects created by the teacher</p>",    "parameter": {      "examples": [        {          "title": "Request-Example:",          "content": "{\n\"subject_id\":11,\n\"approved\":\"true\"\n}",          "type": "json"        }      ]    },    "success": {      "examples": [        {          "title": "SuccessResponse:",          "content": " [\n{\n  \"id\": 11,\n  \"name\": \"abc\",\n  \"code\": null,\n  \"approved\": false,\n  \"created_at\": \"2018-07-18T12:16:46.464Z\",\n  \"updated_at\": \"2018-07-18T12:16:46.464Z\",\n  \"url\": \"http://localhost:3000/subjects/11.json\"\n}\n ]",          "type": "json"        }      ]    },    "filename": "app/controllers/admins_controller.rb",    "groupTitle": "Subject"  },  {    "version": "1.0.0",    "type": "get",    "url": "subjects",    "title": "",    "name": "list_of_subjects",    "group": "Subject",    "description": "<p>list of all subjects</p>",    "success": {      "examples": [        {          "title": "SuccessResponse:",          "content": " [\n{\n  \"id\": 1,\n  \"name\": \"Mathematics\",\n  \"code\": null,\n  \"approved\": true,\n  \"created_at\": \"2018-07-17T13:26:27.723Z\",\n  \"updated_at\": \"2018-07-17T13:26:27.723Z\",\n  \"url\": \"http://localhost:3000/subjects/1.json\"\n}\n ]",          "type": "json"        }      ]    },    "filename": "app/controllers/subjects_controller.rb",    "groupTitle": "Subject"  },  {    "version": "1.0.0",    "type": "get",    "url": "admins/pending_subjects",    "title": "",    "name": "pending_subjects",    "group": "Subject",    "description": "<p>Show subjects created by the teacher</p>",    "success": {      "examples": [        {          "title": "SuccessResponse:",          "content": " [\n{\n  \"id\": 11,\n  \"name\": \"abc\",\n  \"code\": null,\n  \"approved\": false,\n  \"created_at\": \"2018-07-18T12:16:46.464Z\",\n  \"updated_at\": \"2018-07-18T12:16:46.464Z\",\n  \"url\": \"http://localhost:3000/subjects/11.json\"\n},\n ]",          "type": "json"        }      ]    },    "filename": "app/controllers/admins_controller.rb",    "groupTitle": "Subject"  },  {    "version": "1.0.0",    "type": "get",    "url": "users",    "title": "",    "name": "List_of_all_Users",    "group": "Users",    "description": "<p>List of all users</p>",    "success": {      "examples": [        {          "title": "SuccessResponse:",          "content": " [\n{\n  \"id\": 1,\n  \"name\": \"TAHA Updated\",\n  \"info\": null,\n  \"role\": 0,\n  \"created_at\": \"2018-07-17T10:46:04.834Z\",\n  \"updated_at\": \"2018-07-17T10:47:14.749Z\",\n  \"url\": \"http://localhost:3000/users/1.json\"\n}\n ]",          "type": "json"        }      ]    },    "filename": "app/controllers/users_controller.rb",    "groupTitle": "Users"  },  {    "version": "1.0.0",    "type": "put",    "url": "users/role",    "title": "",    "name": "select_role",    "group": "Users",    "description": "<p>Set Tutor</p>",    "parameter": {      "examples": [        {          "title": "Request-Example:",          "content": "{\n \"user_type\":1,\n\"education\":\"abc\",\n\"experience\":\"1-2 years\",\n\"availablity\":\"YES\",\n\"subject_ids\":[1,2,3],\n\"subjects\":[\"FROMsss\",\"INSOMIAsss\"]\n}",          "type": "json"        }      ]    },    "success": {      "examples": [        {          "title": "SuccessResponse:",          "content": " [\n    {\n\"name\": \"taha\",\n\"email\": \"d@ak.com\",\n\"username\": \"taha11\",\n\"gender\": true,\n\"tutor\": {\n  \"id\": 23,\n  \"education\": \"abc\",\n  \"experience\": \"1-2 years\",\n  \"availablity\": \"YES\",\n  \"user_id\": 42,\n  \"created_at\": \"2018-07-20T14:19:12.746Z\",\n  \"updated_at\": \"2018-07-20T14:19:12.746Z\"\n},\n\"subjects\": [\n  {\n    \"id\": 1,\n    \"name\": \"Mathematics\",\n    \"code\": null,\n    \"created_at\": \"2018-07-17T13:26:27.723Z\",\n    \"updated_at\": \"2018-07-17T13:26:27.723Z\",\n    \"approved\": true\n  }\n  ]\n  }\n ]",          "type": "json"        }      ]    },    "header": {      "examples": [        {          "title": "Header-Example:",          "content": " {\n  \"sid\": \"2\"\n  \"stoken\":\"wNJBYeyqHkbU\"\n}",          "type": "json"        }      ]    },    "filename": "app/controllers/users_controller.rb",    "groupTitle": "Users"  },  {    "version": "1.0.0",    "type": "put",    "url": "users/role",    "title": "",    "name": "select_role",    "group": "Users",    "description": "<p>Set Student</p>",    "parameter": {      "examples": [        {          "title": "Request-Example:",          "content": " {\n\"user_type\":0,\n \"name\":\"TAHA\",\n \"info\":\"This is an info\",\n \"price\":3,\n \"datetime\": \"2018-07-17 17:14:22\"\n }",          "type": "json"        }      ]    },    "success": {      "examples": [        {          "title": "SuccessResponse:",          "content": "   [\n      {\n  \"name\": \"TAHA\",\n  \"email\": \"d@aj.com\",\n  \"username\": \"taha10\",\n  \"gender\": true,\n  \"student\": {\n    \"id\": 13,\n    \"price\": 3,\n    \"timing\": null,\n    \"user_id\": 41,\n    \"created_at\": \"2018-07-20T13:47:22.873Z\",\n    \"updated_at\": \"2018-07-20T13:47:22.873Z\"\n  }\n}\n   ]",          "type": "json"        }      ]    },    "header": {      "examples": [        {          "title": "Header-Example:",          "content": "{   \n  \"sid\": \"2\"\n  \"stoken\":\"wNJBYeyqHkbU\"\n\n}",          "type": "json"        }      ]    },    "filename": "app/controllers/users_controller.rb",    "groupTitle": "Users"  },  {    "version": "1.0.0",    "type": "get",    "url": "users/id",    "title": "",    "name": "user_profile",    "group": "Users",    "description": "<p>user profile</p>",    "success": {      "examples": [        {          "title": "SuccessResponse:",          "content": " [\n{\n  \"id\": 1,\n  \"name\": \"TAHA Updated\",\n  \"info\": null,\n  \"role\": 0,\n  \"created_at\": \"2018-07-17T10:46:04.834Z\",\n  \"updated_at\": \"2018-07-17T10:47:14.749Z\",\n  \"url\": \"http://localhost:3000/users/1.json\"\n}\n ]",          "type": "json"        }      ]    },    "filename": "app/controllers/users_controller.rb",    "groupTitle": "Users"  }] });
+define({ "api": [
+  {
+    "version": "1.0.0",
+    "type": "put",
+    "url": "auth/change_password",
+    "title": "",
+    "name": "Change_User_password",
+    "group": "Auth",
+    "description": "<p>Change the User password</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n  \"username\":\"a@a\",\n  \"password\":\"Password1\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": "[\n   {\n     \"success\": \"Your password is successfully changed\"\n   }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n    \"sid\": \"2\"\n    \"stoken\":\"wNJBYeyqHkbU\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/auth/passwords_controller.rb",
+    "groupTitle": "Auth"
+  },
+  {
+    "version": "1.0.0",
+    "type": "delete",
+    "url": "auth/signout",
+    "title": "",
+    "name": "Sign_Out",
+    "group": "Auth",
+    "description": "<p>User Sign Out</p>",
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n    \"sid\": \"2\"\n    \"stoken\":\"wNJBYeyqHkbU\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/auth/sessions_controller.rb",
+    "groupTitle": "Auth"
+  },
+  {
+    "version": "1.0.0",
+    "type": "post",
+    "url": "auth/signup",
+    "title": "",
+    "name": "Sign_UP",
+    "group": "Auth",
+    "description": "<p>User Sign UP</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n\"name\":\"taha\",\n\"email\":\"d@ak.com\",\n\"username\":\"taha11\",\n\"gender\": true,\n\"password\":\"Password1\",\n\"password_confirmation\":\"Password1\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": "[\n  {\n     \"sid\": 1,\n     \"stoken\": \"DRZhwFo75xJ8\",\n     \"user\": {\n     \"name\": \"taha\",\n     \"email\": \"d@ak.com\",\n     \"username\": \"taha11\",\n     \"gender\": true\n     }\n   }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/auth/registrations_controller.rb",
+    "groupTitle": "Auth"
+  },
+  {
+    "version": "1.0.0",
+    "type": "post",
+    "url": "auth/signin",
+    "title": "",
+    "name": "User_Sign_IN",
+    "group": "Auth",
+    "description": "<p>Sign In for user</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n  \"username\":\"a@a\",\n  \"password\":\"Password1\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": "   [\n    {\n      \"sid\": 11,\n      \"stoken\": \"GqLYfU8eGkaJ\",\n      \"user\": {\n        \"name\": \"taha\",\n        \"email\": \"a@.gm.com\",\n        \"username\": \"a@a\",\n        \"gender\": true,\n        \"role\":\"teacher\"\n      }\n}\n   ]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/auth/sessions_controller.rb",
+    "groupTitle": "Auth"
+  },
+  {
+    "version": "1.0.0",
+    "type": "get",
+    "url": "auth/validate",
+    "title": "",
+    "name": "Validate",
+    "group": "Auth",
+    "description": "<p>check that tokens are valid or not</p>",
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n    \"sid\": \"2\"\n    \"stoken\":\"wNJBYeyqHkbU\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": "[\n        {\n     \"user\": {\n       \"name\": \"TAHA\",\n       \"email\": \"d@aj.com\",\n       \"username\": \"taha10\",\n       \"gender\": true,\n       \"student\": {\n         \"id\": 13,\n         \"price\": 3,\n         \"timing\": null,\n         \"user_id\": 41,\n         \"created_at\": \"2018-07-20T13:47:22.873Z\",\n         \"updated_at\": \"2018-07-20T13:47:22.873Z\"\n       }\n     }\n   }   \n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/auth/token_validations_controller.rb",
+    "groupTitle": "Auth"
+  },
+  {
+    "version": "1.0.0",
+    "type": "put",
+    "url": "admins/assign_requests",
+    "title": "",
+    "name": "assign_request",
+    "group": "Request",
+    "description": "<p>Show all request sent by students</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n  \"tutor_id\":21,\n  \"request_id\":14\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": " [\n{\n  \"status\": \"under observation by the admin\",\n  \"studentname\": \"TAHA\",\n  \"studentusername\": \"taha10\",\n  \"requestID\": 12,\n  \"subjectName\": \"Java\"\n}\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/admins_controller.rb",
+    "groupTitle": "Request"
+  },
+  {
+    "version": "1.0.0",
+    "type": "get",
+    "url": "students/pending_requests",
+    "title": "",
+    "name": "check_request",
+    "group": "Request",
+    "description": "<p>Student check his request status</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n\"subject_id\":4\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": " [\n{\n  \"status\": \"under observation by the admin\",\n  \"studentname\": \"TAHA\",\n  \"studentusername\": \"taha10\",\n  \"requestID\": 14,\n  \"subjectName\": \"Java\"\n}\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n    \"sid\": \"1\"\n    \"stoken\":\"wNJBYeyqHkbU\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/student_controller.rb",
+    "groupTitle": "Request"
+  },
+  {
+    "version": "1.0.0",
+    "type": "post",
+    "url": "students/create_request",
+    "title": "",
+    "name": "create_request",
+    "group": "Request",
+    "description": "<p>Student request for a particular subject</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n\"subject_id\":4\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": " [\n{\n  \"status\": \"under observation by the admin\",\n  \"studentname\": \"TAHA\",\n  \"studentusername\": \"taha10\",\n  \"requestID\": 14,\n  \"subjectName\": \"Java\"\n}\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n    \"sid\": \"1\"\n    \"stoken\":\"wNJBYeyqHkbU\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/student_controller.rb",
+    "groupTitle": "Request"
+  },
+  {
+    "version": "1.0.0",
+    "type": "get",
+    "url": "admins/pending_requests",
+    "title": "",
+    "name": "pending_request",
+    "group": "Request",
+    "description": "<p>Show all request sent by students</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": " [\n{\n  \"status\": \"under observation by the admin\",\n  \"studentname\": \"TAHA\",\n  \"studentusername\": \"taha10\",\n  \"requestID\": 12,\n  \"subjectName\": \"Java\"\n}\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/admins_controller.rb",
+    "groupTitle": "Request"
+  },
+  {
+    "version": "1.0.0",
+    "type": "put",
+    "url": "tutor/request_approve",
+    "title": "",
+    "name": "tutor_approves_student_request",
+    "group": "Request",
+    "description": "<p>Tutor acepts the jobs assigned by the admin</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n\"request_id\":14\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": "   [\n\t{\n\t\t\"status\": \"sent to a suitable teacher\",\n\t\t\"tutor\": \"The tutor has not accepted the request\",\n\t\t\"studentname\": \"TAHA\",\n\t\t\"studentusername\": \"taha10\",\n\t\t\"requestID\": 14,\n\t\t\"subjectName\": \"Java\",\n\t\t\"tutorName\": \"taha\",\n\t\t\"tutorEducation\": \"abc\",\n\t\t\"tutorExperience\": \"1-2 years\"\n\t}\n   ]",
+          "type": "json"
+        }
+      ]
+    },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n    \"sid\": \"2\"\n    \"stoken\":\"wNJBYeyqHkbU\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/tutor_controller.rb",
+    "groupTitle": "Request"
+  },
+  {
+    "version": "1.0.0",
+    "type": "get",
+    "url": "tutor/my_requests",
+    "title": "",
+    "name": "tutor_check_request",
+    "group": "Request",
+    "description": "<p>Tutor checks his lists of request</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": "   [\n\t{\n\t\t\"status\": \"sent to a suitable teacher\",\n\t\t\"tutor\": \"The tutor has not accepted the request\",\n\t\t\"studentname\": \"TAHA\",\n\t\t\"studentusername\": \"taha10\",\n\t\t\"requestID\": 14,\n\t\t\"subjectName\": \"Java\",\n\t\t\"tutorName\": \"taha\",\n\t\t\"tutorEducation\": \"abc\",\n\t\t\"tutorExperience\": \"1-2 years\"\n\t}\n   ]",
+          "type": "json"
+        }
+      ]
+    },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n    \"sid\": \"2\"\n    \"stoken\":\"wNJBYeyqHkbU\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/tutor_controller.rb",
+    "groupTitle": "Request"
+  },
+  {
+    "version": "1.0.0",
+    "type": "delete",
+    "url": "admins/delete_subject/id",
+    "title": "",
+    "name": "Deleting_subjects",
+    "group": "Subject",
+    "description": "<p>delete subjects created by the teacher</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": "[\n \"no content\"\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/admins_controller.rb",
+    "groupTitle": "Subject"
+  },
+  {
+    "version": "1.0.0",
+    "type": "post",
+    "url": "subjects/sub_search",
+    "title": "",
+    "name": "Subject_Search",
+    "group": "Subject_Search",
+    "description": "<p>Search for Subject</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n  \"id\":\"1\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": "   [\n    {\n    \"tutors\": [\n        {\n            \"id\": 1,\n            \"education\": \"phd\",\n            \"experience\": \"2years\",\n            \"availablity\": \"Yes\"\n        },\n        {\n            \"id\": 2,\n            \"education\": \"MPhil\",\n            \"experience\": \"1years\",\n            \"availablity\": \"NO\"\n        }\n    ]\n}\n   ]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/subjects_controller.rb",
+    "groupTitle": "Subject_Search"
+  },
+  {
+    "version": "1.0.0",
+    "type": "put",
+    "url": "admins/assign_requests",
+    "title": "",
+    "name": "approve_subjects",
+    "group": "Subject",
+    "description": "<p>approve subjects created by the teacher</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n\"subject_id\":11,\n\"approved\":\"true\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": " [\n{\n  \"id\": 11,\n  \"name\": \"abc\",\n  \"code\": null,\n  \"approved\": false,\n  \"created_at\": \"2018-07-18T12:16:46.464Z\",\n  \"updated_at\": \"2018-07-18T12:16:46.464Z\",\n  \"url\": \"http://localhost:3000/subjects/11.json\"\n}\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/admins_controller.rb",
+    "groupTitle": "Subject"
+  },
+  {
+    "version": "1.0.0",
+    "type": "get",
+    "url": "subjects",
+    "title": "",
+    "name": "list_of_subjects",
+    "group": "Subject",
+    "description": "<p>list of all subjects</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n  \"sid\":\"1\",\n  \"stoken\":\"abcdfsg\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": " [\n{\n  \"id\": 1,\n  \"name\": \"Mathematics\",\n  \"code\": null,\n  \"approved\": true,\n  \"created_at\": \"2018-07-17T13:26:27.723Z\",\n  \"updated_at\": \"2018-07-17T13:26:27.723Z\",\n  \"url\": \"http://localhost:3000/subjects/1.json\"\n}\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/subjects_controller.rb",
+    "groupTitle": "Subject"
+  },
+  {
+    "version": "1.0.0",
+    "type": "get",
+    "url": "admins/pending_subjects",
+    "title": "",
+    "name": "pending_subjects",
+    "group": "Subject",
+    "description": "<p>Show subjects created by the teacher</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": " [\n{\n  \"id\": 11,\n  \"name\": \"abc\",\n  \"code\": null,\n  \"approved\": false,\n  \"created_at\": \"2018-07-18T12:16:46.464Z\",\n  \"updated_at\": \"2018-07-18T12:16:46.464Z\",\n  \"url\": \"http://localhost:3000/subjects/11.json\"\n},\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/admins_controller.rb",
+    "groupTitle": "Subject"
+  },
+  {
+    "version": "1.0.0",
+    "type": "get",
+    "url": "tutors",
+    "title": "",
+    "name": "list_of_tutors",
+    "group": "Tutor",
+    "description": "<p>list of all tutors</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n  \"sid\":\"1\",\n  \"stoken\":\"abcdfsg\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": "   [\n  [\n    {\n        \"id\": 1,\n        \"education\": \"phd\",\n        \"experience\": \"2years\",\n        \"availablity\": \"Yes\",\n        \"created_at\": \"2018-09-18T13:46:26.734Z\",\n        \"updated_at\": \"2018-09-18T13:46:26.734Z\",\n        \"url\": \"http://localhost:3000/tutor.json\"\n    }\n]\n   ]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/tutor_controller.rb",
+    "groupTitle": "Tutor"
+  },
+  {
+    "version": "1.0.0",
+    "type": "get",
+    "url": "users",
+    "title": "",
+    "name": "List_of_all_Users",
+    "group": "Users",
+    "description": "<p>List of all users</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": " [\n{\n  \"id\": 1,\n  \"name\": \"TAHA Updated\",\n  \"info\": null,\n  \"role\": 0,\n  \"created_at\": \"2018-07-17T10:46:04.834Z\",\n  \"updated_at\": \"2018-07-17T10:47:14.749Z\",\n  \"url\": \"http://localhost:3000/users/1.json\"\n}\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/users_controller.rb",
+    "groupTitle": "Users"
+  },
+  {
+    "version": "1.0.0",
+    "type": "put",
+    "url": "users/role",
+    "title": "",
+    "name": "select_role",
+    "group": "Users",
+    "description": "<p>Set Tutor</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n \"user_type\":1,\n\"education\":\"abc\",\n\"experience\":\"1-2 years\",\n\"availablity\":\"YES\",\n\"subject_ids\":[1,2,3],\n\"subjects\":[\"FROMsss\",\"INSOMIAsss\"]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": " [\n    {\n\"name\": \"taha\",\n\"email\": \"d@ak.com\",\n\"username\": \"taha11\",\n\"gender\": true,\n\"tutor\": {\n  \"id\": 23,\n  \"education\": \"abc\",\n  \"experience\": \"1-2 years\",\n  \"availablity\": \"YES\",\n  \"user_id\": 42,\n  \"created_at\": \"2018-07-20T14:19:12.746Z\",\n  \"updated_at\": \"2018-07-20T14:19:12.746Z\"\n},\n\"subjects\": [\n  {\n    \"id\": 1,\n    \"name\": \"Mathematics\",\n    \"code\": null,\n    \"created_at\": \"2018-07-17T13:26:27.723Z\",\n    \"updated_at\": \"2018-07-17T13:26:27.723Z\",\n    \"approved\": true\n  }\n  ]\n  }\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": " {\n  \"sid\": \"2\"\n  \"stoken\":\"wNJBYeyqHkbU\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/users_controller.rb",
+    "groupTitle": "Users"
+  },
+  {
+    "version": "1.0.0",
+    "type": "put",
+    "url": "users/role",
+    "title": "",
+    "name": "select_role",
+    "group": "Users",
+    "description": "<p>Set Student</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": " {\n\"user_type\":0,\n \"name\":\"TAHA\",\n \"info\":\"This is an info\",\n \"price\":3,\n \"datetime\": \"2018-07-17 17:14:22\"\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": "   [\n      {\n  \"name\": \"TAHA\",\n  \"email\": \"d@aj.com\",\n  \"username\": \"taha10\",\n  \"gender\": true,\n  \"student\": {\n    \"id\": 13,\n    \"price\": 3,\n    \"timing\": null,\n    \"user_id\": 41,\n    \"created_at\": \"2018-07-20T13:47:22.873Z\",\n    \"updated_at\": \"2018-07-20T13:47:22.873Z\"\n  }\n}\n   ]",
+          "type": "json"
+        }
+      ]
+    },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{   \n  \"sid\": \"2\"\n  \"stoken\":\"wNJBYeyqHkbU\"\n\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/users_controller.rb",
+    "groupTitle": "Users"
+  },
+  {
+    "version": "1.0.0",
+    "type": "get",
+    "url": "users/id",
+    "title": "",
+    "name": "user_profile",
+    "group": "Users",
+    "description": "<p>user profile</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n  \"sid\":\"1\",\n  \"stoken\":\"abcdfsg\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": "   [\n  {\n    \"sid\": 7,\n    \"stoken\": \"FJd2JQGc9GsP\",\n    \"user\": {\n        \"name\": \"talha\",\n        \"email\": \"talha@gmail.com\",\n        \"username\": \"talha11\",\n        \"gender\": true,\n        \"role\": \"teacher\"\n    }\n}\n   ]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/users_controller.rb",
+    "groupTitle": "Users"
+  }
+] });
