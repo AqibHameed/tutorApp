@@ -1,4 +1,4 @@
-class Auth::SessionsController < ApplicationController
+class Auth::SessionsController < ApiControllerController
   before_action :authenticate_user, only: [:destroy,:signout]
 
 

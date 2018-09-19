@@ -1,4 +1,4 @@
-class Auth::TokenValidationsController < ApplicationController
+class Auth::TokenValidationsController < ApiControllerController
   #simple validation of tokens
   before_action :authenticate_user, only: [:validate]
 

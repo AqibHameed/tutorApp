@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < ApiControllerController
   before_action :set_user, only: [:show]
   before_action :authenticate_user ,only: [:show, :updated]
 

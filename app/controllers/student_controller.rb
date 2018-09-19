@@ -1,4 +1,4 @@
-class StudentController < ApplicationController
+class StudentController < ApiControllerController
 	before_action :authenticate_user
 
 
