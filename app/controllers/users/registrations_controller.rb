@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
+  respond_to :json
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -10,9 +11,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    @user = User.new(user_params)
+    @user.authentication_token = Devise.friendly_token
+
+    if @user.save
+      render status: :created, template: "devise/sessions/sign_in"
+      #render json: user.as_json(authentication_token: user.authentication_token, email: user.email), status: 201
+    else
+      render json: resource.errors, status: 422
+    end
+
+  end
 
   # GET /resource/edit
   # def edit
@@ -38,8 +48,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  protected
 
+  def user_params
+    params.require(:registration).permit(:name, :email, :username, :gender, :password, :password_confirmation)
+  end
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_up_params
   #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
