@@ -11,16 +11,20 @@ class Users::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
   def create
 
-    @user = User.find_for_database_authentication(username: params[:username])
+    @user = User.find_by_username(params[:username])
+    #@user = User.find_for_database_authentication(username: params[:username])
 
     if @user
       @user.authentication_token =  Devise.friendly_token
-      return invalid_login_attempt unless @user
-      if @user.valid_password?(params[:password])
-        sign_in("user", @user)
-        render status: :created, template: "devise/sessions/sign_in"
-        #render json: {success: true, authentication_token: resource.authentication_token, email: resource.email, id: resource.id}
-        return
+      if @user.save
+          if @user.valid_password?(params[:password])
+            sign_in("user", @user)
+            render status: :created, template: "devise/sessions/sign_in"
+            #render json: {success: true, authentication_token: resource.authentication_token, email: resource.email, id: resource.id}
+            return
+          end
+      else
+          return invalid_login_attempt
       end
     end
 

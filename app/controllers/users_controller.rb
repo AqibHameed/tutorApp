@@ -1,6 +1,6 @@
 class UsersController < ApiControllerController
   before_action :set_user, only: [:show]
-  before_action :authenticate_user ,only: [:show, :updated]
+  before_action :authenticate_user_from_id_and_token! ,only: [:show, :updated]
 
 =begin
  @apiVersion 1.0.0
@@ -34,7 +34,7 @@ class UsersController < ApiControllerController
  @apiDescription user profile
 @apiParamExample {json} Request-Example:
 {
-  "sid":"1",
+   "id": "1",
   "stoken":"abcdfsg"
 }
  @apiSuccessExample {json} SuccessResponse:

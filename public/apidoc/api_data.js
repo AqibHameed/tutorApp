@@ -368,7 +368,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n  \"id\":\"1\"\n}",
+          "content": "{\n  \"id\":\"1\",\n  \"stoken\":\"abcdfsg\"\n}",
           "type": "json"
         }
       ]
@@ -426,7 +426,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n  \"sid\":\"1\",\n  \"stoken\":\"abcdfsg\"\n}",
+          "content": "{\n  \"stoken\":\"abcdfsg\"\n}",
           "type": "json"
         }
       ]
@@ -466,7 +466,7 @@ define({ "api": [
   {
     "version": "1.0.0",
     "type": "get",
-    "url": "tutors",
+    "url": "tutor",
     "title": "",
     "name": "list_of_tutors",
     "group": "Tutor",
@@ -475,7 +475,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n  \"sid\":\"1\",\n  \"stoken\":\"abcdfsg\"\n}",
+          "content": "{\n  \"stoken\":\"abcdfsg\"\n}",
           "type": "json"
         }
       ]
@@ -600,7 +600,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n  \"sid\":\"1\",\n  \"stoken\":\"abcdfsg\"\n}",
+          "content": "{\n   \"id\": \"1\",\n  \"stoken\":\"abcdfsg\"\n}",
           "type": "json"
         }
       ]
