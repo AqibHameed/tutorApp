@@ -1,6 +1,6 @@
 class UsersController < ApiControllerController
   before_action :set_user, only: [:show]
-  before_action :authenticate_user_from_id_and_token! ,only: [:show, :updated]
+  before_action :authenticate_user_from_id_and_token! ,only: [:show, :updated, :user_role_update]
 
 =begin
  @apiVersion 1.0.0
@@ -159,64 +159,125 @@ class UsersController < ApiControllerController
 
 
   def updated
-    @user = @current_user
-    if @user.update(user_params)
+
       if params[:user_type].present?
+
         if params[:user_type] == 1
-          @tutor = @user.build_tutor(tutor_params)
-           unless params[:subjects].nil?
-              @tutor = @user.build_tutor(tutor_params)
-              @subject_from_user = params[:subjects]
-              @subject_from_user.each do |s|
-              @subject = Subject.new(name:s,approved:false)
-                if @subject.save
-                  @tutor.subjects << @subject
-                end 
-              end 
-           end  
-            if @tutor.save
-              render status: :created, template: "users/show"
-            else
-               render status: :unprocessable_entity, json: {errors: @tutor.errors.full_messages}
-            end
-        elsif params[:user_type] == 0
-            @student = @user.build_student(student_params)
-              if @student.save
-                render status: :created, template: "users/show"
-              else
-                render status: :unprocessable_entity, json: {errors: @student.errors.full_messages}
-              end  
-        elsif params[:user_type] == 2
-            @student = @user.build_student(student_params)
-              if @student.save
-              else
-                render status: :unprocessable_entity, json: {errors: @student.errors.full_messages}
-              end
-               @tutor = @user.build_tutor(tutor_params)
-                unless params[:subjects].nil?
-                  @tutor = @user.build_tutor(tutor_params)
+          @tutor = Tutor.find_by_id(params[:tutor_id])
+
+          if @tutor.present?
+
+            if @tutor.update(tutor_params)
+
+               unless params[:subjects].nil?
                   @subject_from_user = params[:subjects]
                   @subject_from_user.each do |s|
                   @subject = Subject.new(name:s,approved:false)
                     if @subject.save
                       @tutor.subjects << @subject
-                    else  
-                      # render status: :unprocessable_entity, json: {errors: @subject.errors.full_messages}
-                    end 
-                  end 
-                end  
-              if @tutor.save
-                render status: :created, template: "users/show"
-              else
-                 render status: :unprocessable_entity, json: {errors: @tutor.errors.full_messages}
-              end
+                    end
+                  end
+               end
+
+               render status: :created, template: "users/user_role"
+            else
+              render json: @tutor.errors, status: :unprocessable_entity
+            end
+
+          else
+            render status: :not_found , json: {message: "tutor id not found"}
+          end
+
+        elsif params[:user_type] == 0
+          @student = Student.find_by_id(params[:student_id])
+
+          if @student.present?
+
+            if @student.update(student_params)
+              render status: :created, template: "users/user_role"
+            else
+              render json: @student.errors, status: :unprocessable_entity
+            end
+
+          else
+            render status: :not_found , json: {message: "student id not found"}
+          end
+
         end
+
       else
-      render :show, status: :ok, location: @user  
+         render status: :not_found , json: {message: "user type not found"}
+      end
+  end
+
+  def user_role_update
+
+    if @user.waiting_status == 0
+
+      if params[:user_type].present?
+
+         if @user.update(user_params)
+
+            if params[:user_type].to_i == 1
+                @tutor = @user.build_tutor
+
+                if @tutor.save
+
+                  @request = Request.new(tutor: @tutor)
+
+                  if @request.save
+
+                    @user.update(waiting_status: 1)
+                    render status: :created, template: "users/user_role"
+                  else
+
+                    render status: :unprocessable_entity, json: {errors: @request.errors.full_messages}
+                  end
+
+                else
+
+                  render status: :unprocessable_entity, json: {errors: @tutor.errors.full_messages}
+                end
+
+            elsif  params[:user_type].to_i == 0
+              @student = @user.build_student
+
+              if @student.save
+
+                if @student.save
+                  @request = Request.new(student: @student)
+
+                  if @request.save
+                      @user.update(waiting_status: 1)
+                      render status: :created, template: "users/user_role"
+                  else
+                      render status: :unprocessable_entity, json: {errors: @request.errors.full_messages}
+                  end
+
+                else
+                    render status: :unprocessable_entity, json: {errors: @student.errors.full_messages}
+                end
+
+              else
+                  render status: :unprocessable_entity, json: {errors: @student.errors.full_messages}
+              end
+
+            else
+              render status: :unprocessable_entity, json: {errors: "user type not match"}
+            end
+
+          else
+              render json: @user.errors, status: :unprocessable_entity
+          end
+
+      else
+          render status: :not_found , json: {message: "user type not found"}
       end
     else
-      render json: @user.errors, status: :unprocessable_entity
+
+        render status: :not_modified , json: {message: "Request already sent"}
     end
+
   end
 
   private
@@ -226,7 +287,7 @@ class UsersController < ApiControllerController
     end  
 
     def tutor_params
-      params.permit(:education, :experience, :availablity ,subject_ids:[])
+      params.permit(:education, :experience, :availablity , :fees, subject_ids:[])
     end
 
     def set_user
@@ -234,6 +295,7 @@ class UsersController < ApiControllerController
     end
 
     def user_params
-      params.permit(:name, :info, :user_type)
+      #params.permit(:name, :info, :user_type)
+      params.permit(:user_type)
     end
 end

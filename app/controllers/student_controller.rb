@@ -1,5 +1,5 @@
 class StudentController < ApiControllerController
-	before_action :authenticate_user
+	before_action :authenticate_user_from_id_and_token!
 
 
 =begin
@@ -31,7 +31,7 @@ class StudentController < ApiControllerController
 
 
   def create_request
-		@student = @current_user.student
+		@student = @user.student
   		if params[:subject_id].present?
   			@request = Request.new(student:@student,subject_id:params[:subject_id].to_i)
   			if @request.save
@@ -40,9 +40,35 @@ class StudentController < ApiControllerController
   			render status: :unprocessable_entity, json: {errors: @request.errors.full_messages}	
   			end
   		else
-  		render status: :not_found , json: {errors: I18n.t('students.error.Subject_ID_not_found')}	
+  		   render status: :not_found , json: {errors: I18n.t('students.error.Subject_ID_not_found')}
   		end
-  end
+	end
+
+	def student_hire_a_teacher
+
+		@student = @user.student
+
+		if params[:tutor_id].present?
+			request = Request.where(student: @student, tutor_id: params[:tutor_id].to_i)
+
+			if request.present?
+				 render status: :found, json: {message: "Already send request"}
+			else
+				@request = Request.new(student: @student, tutor_id: params[:tutor_id].to_i)
+
+				if @request.save
+					render status: :created, template: "requests/hire_a_teacher"
+				else
+					render status: :unprocessable_entity, json: {errors: @request.errors.full_messages}
+				end
+
+			end
+
+		else
+			 render status: :not_found , json: {errors: 'tutor id not found'}
+		end
+
+	end
 
 
 =begin
@@ -73,8 +99,8 @@ class StudentController < ApiControllerController
 =end
 
   def check_request
-    @student = @current_user.student
-      @requests = Request.where(student:@student)
+    @student = @user.student
+      @requests = Request.where(student:@student).where.not(subject: [nil, ""])
       unless @requests.nil?
         render status: :ok ,template: "requests/index"
       end 

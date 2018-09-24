@@ -1,5 +1,5 @@
 class TutorController < ApiControllerController
-	before_action :authenticate_user_from_id_and_token!
+	before_action :authenticate_user_from_id_and_token!, only: [:index]
 
 =begin
  @apiVersion 1.0.0
@@ -28,7 +28,12 @@ class TutorController < ApiControllerController
 =end
 
 	def index
-      @tutors = Tutor.all
+		  @users = User.all.where(user_status: 1)
+			if @users.present?
+         @tutors = @users.map{|user| user.tutor}
+			else
+				 @tutors = []
+			end
 	end
 
 =begin
