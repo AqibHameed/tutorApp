@@ -233,7 +233,7 @@
   },
   {
     "version": "1.0.0",
-    "type": "post",
+    "type": "get",
     "url": "students/student_hire_a_teacher",
     "title": "",
     "name": "hire_a_tutor",
@@ -369,7 +369,7 @@
   },
   {
     "version": "1.0.0",
-    "type": "post",
+    "type": "get",
     "url": "subjects/sub_search",
     "title": "",
     "name": "Subject_Search",
@@ -612,7 +612,7 @@
   },
   {
     "version": "1.0.0",
-    "type": "put",
+    "type": "get",
     "url": "users/user_role_update",
     "title": "",
     "name": "role_update",

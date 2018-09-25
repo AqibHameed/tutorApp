@@ -43,7 +43,7 @@ class StudentController < ApiControllerController
 
 =begin
  @apiVersion 1.0.0
- @api {post} students/student_hire_a_teacher
+ @api {get} students/student_hire_a_teacher
  @apiName hire a tutor
  @apiGroup Request
  @apiDescription Student request for a particular tutor
