@@ -1,4 +1,4 @@
-json.partial! "users/user", user: @current_user
+json.partial! "users/user", user: @user
 if @tutor.present?
   json.extract! @tutor,  :education, :experience, :availablity
 elsif @student.present?

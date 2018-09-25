@@ -1,15 +1,14 @@
 class TutorController < ApiControllerController
-	before_action :authenticate_user
+	before_action :authenticate_user_from_id_and_token!, only: [:index]
 
 =begin
  @apiVersion 1.0.0
- @api {get} tutors
+ @api {get} tutor
  @apiName list of tutors
  @apiGroup Tutor
  @apiDescription list of all tutors
 @apiParamExample {json} Request-Example:
 {
-  "sid":"1",
   "stoken":"abcdfsg"
 }
  @apiSuccessExample {json} SuccessResponse:
@@ -29,7 +28,12 @@ class TutorController < ApiControllerController
 =end
 
 	def index
-      @tutors = Tutor.all
+		  @users = User.all.where(user_status: 1)
+			if @users.present?
+         @tutors = @users.map{|user| user.tutor}
+			else
+				 @tutors = []
+			end
 	end
 
 =begin

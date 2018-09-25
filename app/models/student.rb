@@ -4,5 +4,5 @@ class Student < ApplicationRecord
   has_many :requests
   has_many :jobs
   #Validation
-  validates :price ,presence: true
+  #validates :price ,presence: true
 end

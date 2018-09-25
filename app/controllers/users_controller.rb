@@ -1,6 +1,6 @@
 class UsersController < ApiControllerController
   before_action :set_user, only: [:show]
-  before_action :authenticate_user ,only: [:show, :updated]
+  before_action :authenticate_user_from_id_and_token! ,only: [:show, :updated, :user_role_update]
 
 =begin
  @apiVersion 1.0.0
@@ -34,7 +34,6 @@ class UsersController < ApiControllerController
  @apiDescription user profile
 @apiParamExample {json} Request-Example:
 {
-  "sid":"1",
   "stoken":"abcdfsg"
 }
  @apiSuccessExample {json} SuccessResponse:
@@ -73,6 +72,8 @@ class UsersController < ApiControllerController
  @apiDescription Set Tutor
  @apiParamExample {json} Request-Example:
   {
+   "stoken":"wNJBYeyqHkbU"
+   "tutor_id":1,
    "user_type":1,
   "education":"abc",
   "experience":"1-2 years",
@@ -83,36 +84,12 @@ class UsersController < ApiControllerController
  @apiSuccessExample {json} SuccessResponse:
    [
       {
-  "name": "taha",
-  "email": "d@ak.com",
-  "username": "taha11",
-  "gender": true,
-  "tutor": {
-    "id": 23,
-    "education": "abc",
-    "experience": "1-2 years",
-    "availablity": "YES",
-    "user_id": 42,
-    "created_at": "2018-07-20T14:19:12.746Z",
-    "updated_at": "2018-07-20T14:19:12.746Z"
-  },
-  "subjects": [
-    {
-      "id": 1,
-      "name": "Mathematics",
-      "code": null,
-      "created_at": "2018-07-17T13:26:27.723Z",
-      "updated_at": "2018-07-17T13:26:27.723Z",
-      "approved": true
-    }
-    ]
-    }
+        "fees": "3000",
+        "education": "PHD",
+        "experience": "1-2 years",
+        "availablity": "YES"
+     }
    ]
-       @apiHeaderExample {json} Header-Example:
- {
-  "sid": "2"
-  "stoken":"wNJBYeyqHkbU"
-} 
 =end
 
 
@@ -124,99 +101,163 @@ class UsersController < ApiControllerController
  @apiDescription Set Student
  @apiParamExample {json} Request-Example:
   {
+ "stoken":"wNJBYeyqHkbU"
+ "student_id":1,
  "user_type":0,
-  "name":"TAHA",
-  "info":"This is an info",
   "price":3,
-  "datetime": "2018-07-17 17:14:22"
+  "timing": "2018-07-17 17:14:22"
   }
  @apiSuccessExample {json} SuccessResponse:
    [
       {
-  "name": "TAHA",
-  "email": "d@aj.com",
-  "username": "taha10",
-  "gender": true,
-  "student": {
-    "id": 13,
-    "price": 3,
-    "timing": null,
-    "user_id": 41,
-    "created_at": "2018-07-20T13:47:22.873Z",
-    "updated_at": "2018-07-20T13:47:22.873Z"
-  }
-}
+       "price": 600,
+       "timing": "2018-09-24T19:39:03.000Z"
+      }
    ]
-@apiHeaderExample {json} Header-Example:
-{   
-  "sid": "2"
-  "stoken":"wNJBYeyqHkbU"
-
-}
 =end
 
 
 
 
   def updated
-    @user = @current_user
-    if @user.update(user_params)
+
       if params[:user_type].present?
+
         if params[:user_type] == 1
-          @tutor = @user.build_tutor(tutor_params)
-           unless params[:subjects].nil?
-              @tutor = @user.build_tutor(tutor_params)
-              @subject_from_user = params[:subjects]
-              @subject_from_user.each do |s|
-              @subject = Subject.new(name:s,approved:false)
-                if @subject.save
-                  @tutor.subjects << @subject
-                end 
-              end 
-           end  
-            if @tutor.save
-              render status: :created, template: "users/show"
-            else
-               render status: :unprocessable_entity, json: {errors: @tutor.errors.full_messages}
-            end
-        elsif params[:user_type] == 0
-            @student = @user.build_student(student_params)
-              if @student.save
-                render status: :created, template: "users/show"
-              else
-                render status: :unprocessable_entity, json: {errors: @student.errors.full_messages}
-              end  
-        elsif params[:user_type] == 2
-            @student = @user.build_student(student_params)
-              if @student.save
-              else
-                render status: :unprocessable_entity, json: {errors: @student.errors.full_messages}
-              end
-               @tutor = @user.build_tutor(tutor_params)
-                unless params[:subjects].nil?
-                  @tutor = @user.build_tutor(tutor_params)
+          @tutor = Tutor.find_by_id(params[:tutor_id])
+
+          if @tutor.present?
+
+            if @tutor.update(tutor_params)
+
+               unless params[:subjects].nil?
                   @subject_from_user = params[:subjects]
                   @subject_from_user.each do |s|
                   @subject = Subject.new(name:s,approved:false)
                     if @subject.save
                       @tutor.subjects << @subject
-                    else  
-                      # render status: :unprocessable_entity, json: {errors: @subject.errors.full_messages}
-                    end 
-                  end 
-                end  
-              if @tutor.save
-                render status: :created, template: "users/show"
-              else
-                 render status: :unprocessable_entity, json: {errors: @tutor.errors.full_messages}
-              end
+                    end
+                  end
+               end
+
+               render status: :created, template: "users/user_role"
+            else
+              render json: @tutor.errors, status: :unprocessable_entity
+            end
+
+          else
+            render status: :not_found , json: {message: "tutor id not found"}
+          end
+
+        elsif params[:user_type] == 0
+          @student = Student.find_by_id(params[:student_id])
+
+          if @student.present?
+
+            if @student.update(student_params)
+              render status: :created, template: "users/user_role"
+            else
+              render json: @student.errors, status: :unprocessable_entity
+            end
+
+          else
+            render status: :not_found , json: {message: "student id not found"}
+          end
+
         end
+
       else
-      render :show, status: :ok, location: @user  
+         render status: :not_found , json: {message: "user type not found"}
+      end
+  end
+
+=begin
+ @apiVersion 1.0.0
+ @api {put} users/user_role_update
+ @apiName  role update
+ @apiGroup Users
+ @apiDescription user role update
+ @apiParamExample {json} Request-Example:
+  {
+   "stoken":"wNJBYeyqHkbU"
+   "user_type":0,
+  }
+ @apiSuccessExample {json} SuccessResponse:
+   [
+      {
+        "message": "Student Request successfully sent to admin"
+      }
+  ]
+=end
+
+  def user_role_update
+
+    if @user.waiting_status == 0
+
+      if params[:user_type].present?
+
+         if @user.update(user_params)
+
+            if params[:user_type].to_i == 1
+                @tutor = @user.build_tutor
+
+                if @tutor.save
+
+                  @request = Request.new(tutor: @tutor)
+
+                  if @request.save
+
+                    @user.update(waiting_status: 1)
+                    render status: :ok , json: {message: "Tutor Request successfully sent to admin"}
+                  else
+
+                    render status: :unprocessable_entity, json: {errors: @request.errors.full_messages}
+                  end
+
+                else
+
+                  render status: :unprocessable_entity, json: {errors: @tutor.errors.full_messages}
+                end
+
+            elsif  params[:user_type].to_i == 0
+              @student = @user.build_student
+
+              if @student.save
+
+                if @student.save
+                  @request = Request.new(student: @student)
+
+                  if @request.save
+                      @user.update(waiting_status: 1)
+                      render status: :ok , json: {message: "Student Request successfully sent to admin"}
+                  else
+                      render status: :unprocessable_entity, json: {errors: @request.errors.full_messages}
+                  end
+
+                else
+                    render status: :unprocessable_entity, json: {errors: @student.errors.full_messages}
+                end
+
+              else
+                  render status: :unprocessable_entity, json: {errors: @student.errors.full_messages}
+              end
+
+            else
+              render status: :unprocessable_entity, json: {errors: "user type not match"}
+            end
+
+          else
+              render json: @user.errors, status: :unprocessable_entity
+          end
+
+      else
+          render status: :not_found , json: {message: "user type not found"}
       end
     else
-      render json: @user.errors, status: :unprocessable_entity
+
+        render status: :not_modified , json: {message: "Request already sent"}
     end
+
   end
 
   private
@@ -226,7 +267,7 @@ class UsersController < ApiControllerController
     end  
 
     def tutor_params
-      params.permit(:education, :experience, :availablity ,subject_ids:[])
+      params.permit(:education, :experience, :availablity , :fees, subject_ids:[])
     end
 
     def set_user
@@ -234,6 +275,7 @@ class UsersController < ApiControllerController
     end
 
     def user_params
-      params.permit(:name, :info, :user_type)
+      #params.permit(:name, :info, :user_type)
+      params.permit(:user_type)
     end
 end

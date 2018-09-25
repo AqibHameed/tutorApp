@@ -1,5 +1,5 @@
 class SubjectsController < ApiControllerController
-  before_action :authenticate_user
+  before_action :authenticate_user_from_id_and_token!
   before_action :set_subject, only: [:show, :update, :destroy, :sub_search]
 
 
@@ -11,7 +11,6 @@ class SubjectsController < ApiControllerController
  @apiDescription list of all subjects
 @apiParamExample {json} Request-Example:
 {
-  "sid":"1",
   "stoken":"abcdfsg"
 }
  @apiSuccessExample {json} SuccessResponse:
@@ -43,7 +42,7 @@ class SubjectsController < ApiControllerController
  @apiDescription Search for Subject
   @apiParamExample {json} Request-Example:
 {
-  "id":"1"
+  "stoken":"abcdfsg"
 }
  @apiSuccessExample {json} SuccessResponse:
    [
