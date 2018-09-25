@@ -36,7 +36,7 @@ class SubjectsController < ApiControllerController
 
 =begin
  @apiVersion 1.0.0
- @api {post} subjects/sub_search
+ @api {get} subjects/sub_search
  @apiName Subject Search
  @apiGroup Subject Search
  @apiDescription Search for Subject

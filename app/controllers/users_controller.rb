@@ -173,7 +173,7 @@ class UsersController < ApiControllerController
 
 =begin
  @apiVersion 1.0.0
- @api {put} users/user_role_update
+ @api {get} users/user_role_update
  @apiName  role update
  @apiGroup Users
  @apiDescription user role update
