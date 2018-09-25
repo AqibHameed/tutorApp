@@ -9,6 +9,36 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def new
   #   super
   # end
+=begin
+ @apiVersion 1.0.0
+ @api {post} users
+ @apiName  Sign UP
+ @apiGroup Users
+ @apiDescription User Sign UP
+ @apiParamExample {json} Request-Example:
+  {
+  "name":"taha",
+  "email":"d@ak.com",
+  "username":"taha11",
+  "gender": true,
+  "password":"Password1",
+  "password_confirmation":"Password1"
+  }
+ @apiSuccessExample {json} SuccessResponse:
+   [
+     {
+      "sid": 2,
+      "stoken": "zpNyG5A_WMzQCLx6pDBx",
+      "user": {
+          "name": "amjad",
+          "email": "amjad@gmail.com",
+          "username": "amjad11",
+          "gender": true,
+          "role": "student"
+      }
+    }
+   ]
+=end
 
   # POST /resource
   def create

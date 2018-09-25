@@ -34,7 +34,6 @@ class UsersController < ApiControllerController
  @apiDescription user profile
 @apiParamExample {json} Request-Example:
 {
-   "id": "1",
   "stoken":"abcdfsg"
 }
  @apiSuccessExample {json} SuccessResponse:
@@ -73,6 +72,8 @@ class UsersController < ApiControllerController
  @apiDescription Set Tutor
  @apiParamExample {json} Request-Example:
   {
+   "stoken":"wNJBYeyqHkbU"
+   "tutor_id":1,
    "user_type":1,
   "education":"abc",
   "experience":"1-2 years",
@@ -83,36 +84,12 @@ class UsersController < ApiControllerController
  @apiSuccessExample {json} SuccessResponse:
    [
       {
-  "name": "taha",
-  "email": "d@ak.com",
-  "username": "taha11",
-  "gender": true,
-  "tutor": {
-    "id": 23,
-    "education": "abc",
-    "experience": "1-2 years",
-    "availablity": "YES",
-    "user_id": 42,
-    "created_at": "2018-07-20T14:19:12.746Z",
-    "updated_at": "2018-07-20T14:19:12.746Z"
-  },
-  "subjects": [
-    {
-      "id": 1,
-      "name": "Mathematics",
-      "code": null,
-      "created_at": "2018-07-17T13:26:27.723Z",
-      "updated_at": "2018-07-17T13:26:27.723Z",
-      "approved": true
-    }
-    ]
-    }
+        "fees": "3000",
+        "education": "PHD",
+        "experience": "1-2 years",
+        "availablity": "YES"
+     }
    ]
-       @apiHeaderExample {json} Header-Example:
- {
-  "sid": "2"
-  "stoken":"wNJBYeyqHkbU"
-} 
 =end
 
 
@@ -124,35 +101,19 @@ class UsersController < ApiControllerController
  @apiDescription Set Student
  @apiParamExample {json} Request-Example:
   {
+ "stoken":"wNJBYeyqHkbU"
+ "student_id":1,
  "user_type":0,
-  "name":"TAHA",
-  "info":"This is an info",
   "price":3,
-  "datetime": "2018-07-17 17:14:22"
+  "timing": "2018-07-17 17:14:22"
   }
  @apiSuccessExample {json} SuccessResponse:
    [
       {
-  "name": "TAHA",
-  "email": "d@aj.com",
-  "username": "taha10",
-  "gender": true,
-  "student": {
-    "id": 13,
-    "price": 3,
-    "timing": null,
-    "user_id": 41,
-    "created_at": "2018-07-20T13:47:22.873Z",
-    "updated_at": "2018-07-20T13:47:22.873Z"
-  }
-}
+       "price": 600,
+       "timing": "2018-09-24T19:39:03.000Z"
+      }
    ]
-@apiHeaderExample {json} Header-Example:
-{   
-  "sid": "2"
-  "stoken":"wNJBYeyqHkbU"
-
-}
 =end
 
 
@@ -210,6 +171,25 @@ class UsersController < ApiControllerController
       end
   end
 
+=begin
+ @apiVersion 1.0.0
+ @api {put} users/user_role_update
+ @apiName  role update
+ @apiGroup Users
+ @apiDescription user role update
+ @apiParamExample {json} Request-Example:
+  {
+   "stoken":"wNJBYeyqHkbU"
+   "user_type":0,
+  }
+ @apiSuccessExample {json} SuccessResponse:
+   [
+      {
+        "message": "Student Request successfully sent to admin"
+      }
+  ]
+=end
+
   def user_role_update
 
     if @user.waiting_status == 0
@@ -228,7 +208,7 @@ class UsersController < ApiControllerController
                   if @request.save
 
                     @user.update(waiting_status: 1)
-                    render status: :created, template: "users/user_role"
+                    render status: :ok , json: {message: "Tutor Request successfully sent to admin"}
                   else
 
                     render status: :unprocessable_entity, json: {errors: @request.errors.full_messages}
@@ -249,7 +229,7 @@ class UsersController < ApiControllerController
 
                   if @request.save
                       @user.update(waiting_status: 1)
-                      render status: :created, template: "users/user_role"
+                      render status: :ok , json: {message: "Student Request successfully sent to admin"}
                   else
                       render status: :unprocessable_entity, json: {errors: @request.errors.full_messages}
                   end

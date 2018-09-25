@@ -42,7 +42,6 @@ class SubjectsController < ApiControllerController
  @apiDescription Search for Subject
   @apiParamExample {json} Request-Example:
 {
-  "id":"1",
   "stoken":"abcdfsg"
 }
  @apiSuccessExample {json} SuccessResponse:

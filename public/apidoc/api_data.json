@@ -185,7 +185,7 @@
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n\"subject_id\":4\n}",
+          "content": "{\n\"stoken\":\"wNJBYeyqHkbU\"\n\"subject_id\":4\n}",
           "type": "json"
         }
       ]
@@ -195,15 +195,6 @@
         {
           "title": "SuccessResponse:",
           "content": " [\n{\n  \"status\": \"under observation by the admin\",\n  \"studentname\": \"TAHA\",\n  \"studentusername\": \"taha10\",\n  \"requestID\": 14,\n  \"subjectName\": \"Java\"\n}\n ]",
-          "type": "json"
-        }
-      ]
-    },
-    "header": {
-      "examples": [
-        {
-          "title": "Header-Example:",
-          "content": "{\n    \"sid\": \"1\"\n    \"stoken\":\"wNJBYeyqHkbU\"\n}",
           "type": "json"
         }
       ]
@@ -223,7 +214,7 @@
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n\"subject_id\":4\n}",
+          "content": "{\n\"stoken\":\"wNJBYeyqHkbU\"\n\"subject_id\":4\n}",
           "type": "json"
         }
       ]
@@ -237,11 +228,31 @@
         }
       ]
     },
-    "header": {
+    "filename": "app/controllers/student_controller.rb",
+    "groupTitle": "Request"
+  },
+  {
+    "version": "1.0.0",
+    "type": "post",
+    "url": "students/student_hire_a_teacher",
+    "title": "",
+    "name": "hire_a_tutor",
+    "group": "Request",
+    "description": "<p>Student request for a particular tutor</p>",
+    "parameter": {
       "examples": [
         {
-          "title": "Header-Example:",
-          "content": "{\n    \"sid\": \"1\"\n    \"stoken\":\"wNJBYeyqHkbU\"\n}",
+          "title": "Request-Example:",
+          "content": " {\n  \"stoken\":\"wNJBYeyqHkbU\"\n\t\"tutor_id\":1\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": " [\n\t{\n   \"status\": \"under observation by the admin\"\n  }\n ]",
           "type": "json"
         }
       ]
@@ -368,7 +379,7 @@
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n  \"id\":\"1\",\n  \"stoken\":\"abcdfsg\"\n}",
+          "content": "{\n  \"stoken\":\"abcdfsg\"\n}",
           "type": "json"
         }
       ]
@@ -514,6 +525,122 @@
   },
   {
     "version": "1.0.0",
+    "type": "delete",
+    "url": "users/sign_out",
+    "title": "",
+    "name": "Sign_Out",
+    "group": "Users",
+    "description": "<p>User Sign Out</p>",
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"stoken\":\"wNJBYeyqHkbU\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": "[\n {\n     \"success\": true,\n     \"message\": \"Successfully signed out\"\n }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/users/sessions_controller.rb",
+    "groupTitle": "Users"
+  },
+  {
+    "version": "1.0.0",
+    "type": "post",
+    "url": "users",
+    "title": "",
+    "name": "Sign_UP",
+    "group": "Users",
+    "description": "<p>User Sign UP</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n\"name\":\"taha\",\n\"email\":\"d@ak.com\",\n\"username\":\"taha11\",\n\"gender\": true,\n\"password\":\"Password1\",\n\"password_confirmation\":\"Password1\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": "[\n  {\n   \"sid\": 2,\n   \"stoken\": \"zpNyG5A_WMzQCLx6pDBx\",\n   \"user\": {\n       \"name\": \"amjad\",\n       \"email\": \"amjad@gmail.com\",\n       \"username\": \"amjad11\",\n       \"gender\": true,\n       \"role\": \"student\"\n   }\n }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/users/registrations_controller.rb",
+    "groupTitle": "Users"
+  },
+  {
+    "version": "1.0.0",
+    "type": "post",
+    "url": "users/sign_in",
+    "title": "",
+    "name": "User_Sign_IN",
+    "group": "Users",
+    "description": "<p>Sign In for user</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n  \"username\":\"a@a\",\n  \"password\":\"Password1\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": "   [\n    {\n    \"sid\": 2,\n    \"stoken\": \"omMr8pRhH1RCpD1YDZfF\",\n    \"user\": {\n        \"name\": \"amjad\",\n        \"email\": \"amjad@gmail.com\",\n        \"username\": \"amjad11\",\n        \"gender\": true,\n        \"user_status\": 0,\n        \"role\": \"teacher\",\n        \"tutor\": {\n            \"id\": 4,\n            \"education\": null,\n            \"experience\": null,\n            \"availablity\": null,\n            \"user_id\": 2,\n            \"created_at\": \"2018-09-24T16:03:54.231Z\",\n            \"updated_at\": \"2018-09-24T16:03:54.231Z\",\n            \"fees\": null\n          },\n        \"subjects\": []\n      }\n    }\n}\n   ]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/users/sessions_controller.rb",
+    "groupTitle": "Users"
+  },
+  {
+    "version": "1.0.0",
+    "type": "put",
+    "url": "users/user_role_update",
+    "title": "",
+    "name": "role_update",
+    "group": "Users",
+    "description": "<p>user role update</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n \"stoken\":\"wNJBYeyqHkbU\"\n \"user_type\":0,\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": " [\n    {\n      \"message\": \"Student Request successfully sent to admin\"\n    }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/users_controller.rb",
+    "groupTitle": "Users"
+  },
+  {
+    "version": "1.0.0",
     "type": "put",
     "url": "users/role",
     "title": "",
@@ -524,7 +651,7 @@
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n \"user_type\":1,\n\"education\":\"abc\",\n\"experience\":\"1-2 years\",\n\"availablity\":\"YES\",\n\"subject_ids\":[1,2,3],\n\"subjects\":[\"FROMsss\",\"INSOMIAsss\"]\n}",
+          "content": "{\n \"stoken\":\"wNJBYeyqHkbU\"\n \"tutor_id\":1,\n \"user_type\":1,\n\"education\":\"abc\",\n\"experience\":\"1-2 years\",\n\"availablity\":\"YES\",\n\"subject_ids\":[1,2,3],\n\"subjects\":[\"FROMsss\",\"INSOMIAsss\"]\n}",
           "type": "json"
         }
       ]
@@ -533,16 +660,7 @@
       "examples": [
         {
           "title": "SuccessResponse:",
-          "content": " [\n    {\n\"name\": \"taha\",\n\"email\": \"d@ak.com\",\n\"username\": \"taha11\",\n\"gender\": true,\n\"tutor\": {\n  \"id\": 23,\n  \"education\": \"abc\",\n  \"experience\": \"1-2 years\",\n  \"availablity\": \"YES\",\n  \"user_id\": 42,\n  \"created_at\": \"2018-07-20T14:19:12.746Z\",\n  \"updated_at\": \"2018-07-20T14:19:12.746Z\"\n},\n\"subjects\": [\n  {\n    \"id\": 1,\n    \"name\": \"Mathematics\",\n    \"code\": null,\n    \"created_at\": \"2018-07-17T13:26:27.723Z\",\n    \"updated_at\": \"2018-07-17T13:26:27.723Z\",\n    \"approved\": true\n  }\n  ]\n  }\n ]",
-          "type": "json"
-        }
-      ]
-    },
-    "header": {
-      "examples": [
-        {
-          "title": "Header-Example:",
-          "content": " {\n  \"sid\": \"2\"\n  \"stoken\":\"wNJBYeyqHkbU\"\n}",
+          "content": "[\n   {\n     \"fees\": \"3000\",\n     \"education\": \"PHD\",\n     \"experience\": \"1-2 years\",\n     \"availablity\": \"YES\"\n  }\n]",
           "type": "json"
         }
       ]
@@ -562,7 +680,7 @@
       "examples": [
         {
           "title": "Request-Example:",
-          "content": " {\n\"user_type\":0,\n \"name\":\"TAHA\",\n \"info\":\"This is an info\",\n \"price\":3,\n \"datetime\": \"2018-07-17 17:14:22\"\n }",
+          "content": " {\n\"stoken\":\"wNJBYeyqHkbU\"\n\"student_id\":1,\n\"user_type\":0,\n \"price\":3,\n \"timing\": \"2018-07-17 17:14:22\"\n }",
           "type": "json"
         }
       ]
@@ -571,16 +689,7 @@
       "examples": [
         {
           "title": "SuccessResponse:",
-          "content": "   [\n      {\n  \"name\": \"TAHA\",\n  \"email\": \"d@aj.com\",\n  \"username\": \"taha10\",\n  \"gender\": true,\n  \"student\": {\n    \"id\": 13,\n    \"price\": 3,\n    \"timing\": null,\n    \"user_id\": 41,\n    \"created_at\": \"2018-07-20T13:47:22.873Z\",\n    \"updated_at\": \"2018-07-20T13:47:22.873Z\"\n  }\n}\n   ]",
-          "type": "json"
-        }
-      ]
-    },
-    "header": {
-      "examples": [
-        {
-          "title": "Header-Example:",
-          "content": "{   \n  \"sid\": \"2\"\n  \"stoken\":\"wNJBYeyqHkbU\"\n\n}",
+          "content": "[\n   {\n    \"price\": 600,\n    \"timing\": \"2018-09-24T19:39:03.000Z\"\n   }\n]",
           "type": "json"
         }
       ]
@@ -600,7 +709,7 @@
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n   \"id\": \"1\",\n  \"stoken\":\"abcdfsg\"\n}",
+          "content": "{\n  \"stoken\":\"abcdfsg\"\n}",
           "type": "json"
         }
       ]
