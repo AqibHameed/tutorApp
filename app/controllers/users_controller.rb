@@ -255,7 +255,7 @@ class UsersController < ApiControllerController
       end
     else
 
-        render status: :not_modified , json: {message: "Request already sent"}
+        render status: :not_found , json: {message: "Request already sent"}
     end
 
   end
