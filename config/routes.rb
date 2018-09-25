@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       sessions: 'users/sessions',
       passwords: 'users/passwords'
   }
-ActiveAdmin.routes(self)
+# ActiveAdmin.routes(self)
 root "admins#first"
   namespace :auth do
     get "/check_username", to: "registrations#check_username"
