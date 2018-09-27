@@ -15,14 +15,14 @@ class TutorController < ApiControllerController
    [
   [
     {
-        "id": 1,
-        "education": "phd",
-        "experience": "2years",
-        "availablity": "Yes",
-        "created_at": "2018-09-18T13:46:26.734Z",
-        "updated_at": "2018-09-18T13:46:26.734Z",
-        "url": "http://localhost:3000/tutor.json"
-    }
+    "tutors": [
+        {
+            "education": "BSCS",
+            "experience": "2 years",
+            "availablity": "yes"
+        }
+    ]
+   }
 ]
    ]
 =end
