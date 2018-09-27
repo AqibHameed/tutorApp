@@ -1,1 +1,6 @@
-json.array! @tutors, partial: 'tutor/tutor', as: :tutor
+json.tutors @tutors.each do |tutor|
+  json.education tutor.education
+  json.experience tutor.experience
+  json.availablity tutor.availablity
+end
+

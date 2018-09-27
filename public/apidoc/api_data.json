@@ -495,7 +495,7 @@
       "examples": [
         {
           "title": "SuccessResponse:",
-          "content": "   [\n  [\n    {\n        \"id\": 1,\n        \"education\": \"phd\",\n        \"experience\": \"2years\",\n        \"availablity\": \"Yes\",\n        \"created_at\": \"2018-09-18T13:46:26.734Z\",\n        \"updated_at\": \"2018-09-18T13:46:26.734Z\",\n        \"url\": \"http://localhost:3000/tutor.json\"\n    }\n]\n   ]",
+          "content": "   [\n  [\n    {\n    \"tutors\": [\n        {\n            \"education\": \"BSCS\",\n            \"experience\": \"2 years\",\n            \"availablity\": \"yes\"\n        }\n    ]\n   }\n]\n   ]",
           "type": "json"
         }
       ]

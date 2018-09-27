@@ -30,7 +30,7 @@ class TutorController < ApiControllerController
 	def index
 		  @users = User.all.where(user_status: 1)
 			if @users.present?
-         @tutors = @users.map{|user| user.tutor}
+         @tutors = @users.map{|user| user.tutor}.compact
 			else
 				 @tutors = []
 			end
