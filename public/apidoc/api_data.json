@@ -495,7 +495,36 @@
       "examples": [
         {
           "title": "SuccessResponse:",
-          "content": "   [\n  [\n    {\n    \"tutors\": [\n        {\n            \"education\": \"BSCS\",\n            \"experience\": \"2 years\",\n            \"availablity\": \"yes\"\n        }\n    ]\n   }\n]\n   ]",
+          "content": "    {\n    \"tutors\": [\n        {\n\t\t\t\t\t\"id\": 1,\n\t\t\t\t\t\"education\": \"BSCS\",\n\t\t\t\t\t\"experience\": \"2 years\",\n\t\t\t\t\t\"availablity\": \"yes\",\n\t\t\t\t\t\"timing\": \"\",\n\t\t\t\t\t\"name\": \"talha\",\n\t\t\t\t\t\"gender\": true,\n\t\t\t\t\t\"phone\": null,\n\t\t\t\t\t\"martial_status\": null,\n\t\t\t\t\t\"age\": null,\n\t\t\t\t\t\"subjects\": [\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\"id\": 1,\n\t\t\t\t\t\t\t\t\t\"name\": \"PHP\"\n\t\t\t\t\t\t\t}\n\t\t\t\t\t ]\n         }\n      ]\n    }",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/tutor_controller.rb",
+    "groupTitle": "Tutor"
+  },
+  {
+    "version": "1.0.0",
+    "type": "get",
+    "url": "tutor/id",
+    "title": "",
+    "name": "tutor_profile",
+    "group": "Tutor",
+    "description": "<p>tutor profile</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n  \"id\": \"1\"\n  \"stoken\":\"abcdfsg\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": "{\n \"tutor\": {\n     \"id\": 1,\n     \"education\": \"BSCS\",\n     \"experience\": \"2 years\",\n     \"availablity\": \"yes\",\n     \"user_id\": 2,\n     \"created_at\": \"2018-09-25T13:11:54.037Z\",\n     \"updated_at\": \"2018-09-25T14:06:43.915Z\",\n     \"fees\": \"5000\",\n     \"timing\": null\n  }\n}",
           "type": "json"
         }
       ]
@@ -631,7 +660,7 @@
       "examples": [
         {
           "title": "SuccessResponse:",
-          "content": " [\n    {\n      \"message\": \"Student Request successfully sent to admin\"\n    }\n]",
+          "content": " [\n    {\n      \"message\": \"Tutor Request successfully sent to admin\"\n    }\n]",
           "type": "json"
         }
       ]
@@ -690,6 +719,35 @@
         {
           "title": "SuccessResponse:",
           "content": "[\n   {\n    \"price\": 600,\n    \"timing\": \"2018-09-24T19:39:03.000Z\"\n   }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/controllers/users_controller.rb",
+    "groupTitle": "Users"
+  },
+  {
+    "version": "1.0.0",
+    "type": "put",
+    "url": "users/profile_update",
+    "title": "",
+    "name": "select_user_profile_update",
+    "group": "Users",
+    "description": "<p>Edit Profile</p>",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "    {\n      \"stoken\":\"wNJBYeyqHkbU\"\n      \"student_id\":1,\n       \"tutor_id\":1\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "SuccessResponse:",
+          "content": "[\n    {\n      \"user\":{\n        \"name\": \"aqib\",\n        \"gender\": true,\n        \"phone\": \"123456\",\n        \"address\": \"Johr toen lahore\",\n        \"year_of_completion\": \"2015\",\n        \"majors\": \"programing\",\n        \"institution\": \"UOL\",\n        \"martial_status\": 0,\n        \"age\": \"25 year\",\n        \"expectation\": \"abc\",\n        \"tutor_attributes\":{\n          \"id\": \"2\",\n           \"education\": \"Mphil\",\n           \"experience\": \"1-2 years\",\n           \"fees\": \"5000\"\n           }\n        }\n    }\n]",
           "type": "json"
         }
       ]

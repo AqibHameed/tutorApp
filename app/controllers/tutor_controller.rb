@@ -12,19 +12,28 @@ class TutorController < ApiControllerController
   "stoken":"abcdfsg"
 }
  @apiSuccessExample {json} SuccessResponse:
-   [
-  [
     {
     "tutors": [
         {
-            "education": "BSCS",
-            "experience": "2 years",
-            "availablity": "yes"
-        }
-    ]
-   }
-]
-   ]
+					"id": 1,
+					"education": "BSCS",
+					"experience": "2 years",
+					"availablity": "yes",
+					"timing": "",
+					"name": "talha",
+					"gender": true,
+					"phone": null,
+					"martial_status": null,
+					"age": null,
+					"subjects": [
+							{
+									"id": 1,
+									"name": "PHP"
+							}
+					 ]
+         }
+      ]
+    }
 =end
 
 	def index
@@ -33,6 +42,40 @@ class TutorController < ApiControllerController
          @tutors = @users.map{|user| user.tutor}.compact
 			else
 				 @tutors = []
+			end
+	end
+=begin
+ @apiVersion 1.0.0
+ @api {get} tutor/id
+ @apiName tutor profile
+ @apiGroup Tutor
+ @apiDescription tutor profile
+@apiParamExample {json} Request-Example:
+{
+  "id": "1"
+  "stoken":"abcdfsg"
+}
+ @apiSuccessExample {json} SuccessResponse:
+   {
+    "tutor": {
+        "id": 1,
+        "education": "BSCS",
+        "experience": "2 years",
+        "availablity": "yes",
+        "user_id": 2,
+        "created_at": "2018-09-25T13:11:54.037Z",
+        "updated_at": "2018-09-25T14:06:43.915Z",
+        "fees": "5000",
+        "timing": null
+     }
+   }
+=end
+	def show
+		  @tutor = Tutor.find_by(id: params[:id])
+		  if @tutor.present?
+				render status: :ok , json: {tutor: @tutor}
+			else
+				render status: :unprocessable_entity, json: {errors: @tutor.errors.full_messages}
 			end
 	end
 

@@ -1,6 +1,6 @@
 class UsersController < ApiControllerController
   before_action :set_user, only: [:show]
-  before_action :authenticate_user_from_id_and_token! ,only: [:show, :updated, :user_role_update]
+  before_action :authenticate_user_from_id_and_token!
 
 =begin
  @apiVersion 1.0.0
@@ -185,7 +185,7 @@ class UsersController < ApiControllerController
  @apiSuccessExample {json} SuccessResponse:
    [
       {
-        "message": "Student Request successfully sent to admin"
+        "message": "Tutor Request successfully sent to admin"
       }
   ]
 =end
@@ -224,19 +224,16 @@ class UsersController < ApiControllerController
 
               if @student.save
 
-                if @student.save
-                  @request = Request.new(student: @student)
+                @user.update(user_status: 1)
+                render status: :ok , json: {message: "Become a student successfully"}
+                  #@request = Request.new(student: @student)
 
-                  if @request.save
-                      @user.update(waiting_status: 1)
-                      render status: :ok , json: {message: "Student Request successfully sent to admin"}
-                  else
-                      render status: :unprocessable_entity, json: {errors: @request.errors.full_messages}
-                  end
-
-                else
-                    render status: :unprocessable_entity, json: {errors: @student.errors.full_messages}
-                end
+                  # if @request.save
+                  #     @user.update(waiting_status: 1)
+                  #     render status: :ok , json: {message: "Student Request successfully sent to admin"}
+                  # else
+                  #     render status: :unprocessable_entity, json: {errors: @request.errors.full_messages}
+                  # end
 
               else
                   render status: :unprocessable_entity, json: {errors: @student.errors.full_messages}
@@ -259,6 +256,80 @@ class UsersController < ApiControllerController
     end
 
   end
+=begin
+  @apiVersion 1.0.0
+  @api {put} users/profile_update
+  @apiName select user profile update
+  @apiGroup Users
+  @apiDescription Edit Profile
+  @apiParamExample {json} Request-Example:
+      {
+        "stoken":"wNJBYeyqHkbU"
+        "student_id":1,
+         "tutor_id":1
+  }
+  @apiSuccessExample {json} SuccessResponse:
+      [
+          {
+            "user":{
+              "name": "aqib",
+              "gender": true,
+              "phone": "123456",
+              "address": "Johr toen lahore",
+              "year_of_completion": "2015",
+              "majors": "programing",
+              "institution": "UOL",
+              "martial_status": 0,
+              "age": "25 year",
+              "expectation": "abc",
+              "tutor_attributes":{
+                "id": "2",
+                 "education": "Mphil",
+                 "experience": "1-2 years",
+                 "fees": "5000"
+                 }
+              }
+          }
+      ]
+=end
+
+  def profile_update
+
+    if params[:tutor_id].present?
+       @tutor = Tutor.find_by(id: params[:tutor_id])
+
+       if @tutor.present?
+         if @user.update(user_tutor_params)
+             render status: :ok, template: "users/profile_update"
+         else
+            render status: :unprocessable_entity, json: {errors: "tutor params not update"}
+         end
+       else
+          render status: :unprocessable_entity, json: {errors: "tutor  not exist"}
+       end
+
+    elsif params[:student_id].present?
+      @student = Student.find_by(id: params[:student_id])
+
+      if @student.present?
+
+        if @user.update(user_student_params)
+           render status: :ok, template: "users/profile_update"
+        else
+           render status: :unprocessable_entity, json: {errors: "student params not update"}
+        end
+
+      else
+        render status: :unprocessable_entity, json: {errors: "student  not exist"}
+      end
+
+    else
+        render status: :not_found, json: {errors: "Id not found"}
+    end
+
+  end
+
+
 
   private
 
@@ -277,5 +348,14 @@ class UsersController < ApiControllerController
     def user_params
       #params.permit(:name, :info, :user_type)
       params.permit(:user_type)
+    end
+
+    def user_tutor_params
+
+      params.require(:user).permit(:name, :gender, :phone, :address, :degree, :year_of_completion, :majors, :institution, :martial_status, :age, :expectation,tutor_attributes: [:id, :education, :experience, :fees, :timing ])
+    end
+
+    def user_student_params
+      params.require(:user).permit(:name, :gender, :phone, :address, :degree, :year_of_completion, :majors, :institution, :martial_status, :age,  student_attributes: [:id, :price, :timing])
     end
 end
