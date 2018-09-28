@@ -36,12 +36,14 @@ root "admins#first"
   post "/students/create_request", to: "student#create_request"
   get  "/students/pending_requests", to:"student#check_request"
   get  "/students/student_hire_a_teacher", to:"student#student_hire_a_teacher"
-  get "/tutor", to: "tutor#index"
+  #get "/tutor", to: "tutor#index"
+  resources :tutor
   put  "/tutor/request_approve", to: "tutor#approve_requests"
   get  "/tutor/my_requests",to:"tutor#check_requests"
   resources :users , except: [:create,:destroy,:update] do
     collection do
       get 'user_role_update'
+      put 'profile_update'
     end
   end
   put  "/users/role", to:"users#updated"
