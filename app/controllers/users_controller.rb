@@ -296,9 +296,16 @@ class UsersController < ApiControllerController
   def profile_update
 
     if params[:tutor_id].present?
+
        @tutor = Tutor.find_by(id: params[:tutor_id])
 
        if @tutor.present?
+
+         if params[:user][:tutor_attributes][:timing].present?
+
+            @tutor.update(timing: params[:user][:tutor_attributes][:timing].to_time)
+         end
+
          if @user.update(user_tutor_params)
              render status: :ok, template: "users/profile_update"
          else
@@ -312,6 +319,10 @@ class UsersController < ApiControllerController
       @student = Student.find_by(id: params[:student_id])
 
       if @student.present?
+
+        if params[:user][:student_attributes][:timing].present?
+          @student.update(timing: params[:user][:student_attributes][:timing].to_time)
+        end
 
         if @user.update(user_student_params)
            render status: :ok, template: "users/profile_update"
@@ -352,10 +363,10 @@ class UsersController < ApiControllerController
 
     def user_tutor_params
 
-      params.require(:user).permit(:name, :gender, :phone, :address, :degree, :year_of_completion, :majors, :institution, :martial_status, :age, :expectation,tutor_attributes: [:id, :education, :experience, :fees, :timing ])
+      params.require(:user).permit(:name, :gender, :phone, :address, :degree, :year_of_completion, :majors, :institution, :martial_status, :age, :expectation,tutor_attributes: [:id, :education, :experience, :fees ])
     end
 
     def user_student_params
-      params.require(:user).permit(:name, :gender, :phone, :address, :degree, :year_of_completion, :majors, :institution, :martial_status, :age,  student_attributes: [:id, :price, :timing])
+      params.require(:user).permit(:name, :gender, :phone, :address, :degree, :year_of_completion, :majors, :institution, :martial_status, :age,  student_attributes: [:id, :price])
     end
 end
