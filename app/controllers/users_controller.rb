@@ -39,15 +39,34 @@ class UsersController < ApiControllerController
  @apiSuccessExample {json} SuccessResponse:
    [
   {
-    "sid": 7,
-    "stoken": "FJd2JQGc9GsP",
-    "user": {
-        "name": "talha",
-        "email": "talha@gmail.com",
-        "username": "talha11",
-        "gender": true,
-        "role": "teacher"
-    }
+    "id": 3,
+    "name": "aqib",
+    "email": "wasim@gmail.com",
+    "username": "taha11",
+    "gender": true,
+    "phone": "123456",
+    "address": "Johr toen lahore",
+    "degree": null,
+    "year_of_completion": "2015",
+    "institution": "UOL",
+    "majors": "programing",
+    "expectation": "abc",
+    "martial_status": 0,
+    "age": "25 year",
+    "role": "student",
+    "tutor": {
+        "id": 2,
+        "education": "Mphil",
+        "experience": "1-2 years",
+        "availablity": "yes",
+        "user_id": 3,
+        "created_at": "2018-09-28T11:35:33.729Z",
+        "updated_at": "2018-09-28T14:40:10.895Z",
+        "fees": "5000",
+        "timing": "2018-09-27T23:00:00.000Z"
+    },
+    "subjects": []
+  }
 }
    ]
 =end
