@@ -4,7 +4,7 @@ json.tutors @tutors.each do |tutor|
   json.experience tutor.experience
   json.availablity tutor.availablity
   if tutor.timing.present?
-    json.timing tutor.timing.strftime("%I:%M %p")
+    json.timing tutor.timing.localtime.strftime("%I:%M %p")
   else
     json.timing ""
   end
