@@ -1,4 +1,4 @@
-json.extract! user,  :id, :name, :email, :username, :gender
+json.extract! user,  :id, :name, :email, :username, :gender, :phone, :address, :degree, :year_of_completion, :institution, :majors, :expectation, :martial_status, :age
 #json.role @role.name
 if user.user_type == 1
    json.role "teacher"
