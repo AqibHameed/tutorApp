@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  permit_params :name, :info, :user_type, :email, :username, :about, :gender, :user_status, :waiting_status
+  permit_params :name, :info, :user_type, :email, :username, :about, :gender, :user_status, :waiting_status, :phone, :address, :degree, :year_of_completion, :institution, :majors, :expectation, :martial_status, :age
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #

@@ -1,5 +1,5 @@
 ActiveAdmin.register Tutor do
-  permit_params :education, :experience, :availablity, :user_id, :fees
+  permit_params :education, :experience, :availablity, :user_id, :fees, :timing
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #

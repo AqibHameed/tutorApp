@@ -267,7 +267,26 @@ class UsersController < ApiControllerController
         "stoken":"wNJBYeyqHkbU"
         "student_id":1,
          "tutor_id":1
-  }
+       "user":{
+              "name": "aqib",
+              "gender": true,
+              "phone": "123456",
+              "address": "Johr toen lahore",
+              "year_of_completion": "2015",
+              "majors": "programing",
+              "institution": "UOL",
+              "martial_status": 0,
+              "age": "25 year",
+              "expectation": "abc",
+              "tutor_attributes":{
+                "id": "2",
+                 "education": "Mphil",
+                 "experience": "1-2 years",
+                 "fees": "5000",
+                 "timing":"4:00 AM"
+               }
+        }
+     }
   @apiSuccessExample {json} SuccessResponse:
       [
           {
