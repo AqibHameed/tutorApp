@@ -4,7 +4,7 @@ if params[:student_id].present?
   json.id @user.student.id
   json.price @user.student.price
   if @user.student.timing.present?
-    json.timing @user.student.timing.strftime("%I:%M %p")
+    json.timing @user.student.timing.localtime.strftime("%I:%M %p")
   else
     json.timing ""
   end
