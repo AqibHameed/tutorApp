@@ -738,7 +738,7 @@
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "    {\n      \"stoken\":\"wNJBYeyqHkbU\"\n      \"student_id\":1,\n       \"tutor_id\":1\n}",
+          "content": " {\n   \"stoken\":\"wNJBYeyqHkbU\"\n   \"student_id\":1,\n    \"tutor_id\":1\n  \"user\":{\n         \"name\": \"aqib\",\n         \"gender\": true,\n         \"phone\": \"123456\",\n         \"address\": \"Johr toen lahore\",\n         \"year_of_completion\": \"2015\",\n         \"majors\": \"programing\",\n         \"institution\": \"UOL\",\n         \"martial_status\": 0,\n         \"age\": \"25 year\",\n         \"expectation\": \"abc\",\n         \"tutor_attributes\":{\n           \"id\": \"2\",\n            \"education\": \"Mphil\",\n            \"experience\": \"1-2 years\",\n            \"fees\": \"5000\",\n            \"timing\":\"4:00 AM\"\n          }\n   }\n}",
           "type": "json"
         }
       ]
