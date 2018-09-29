@@ -776,7 +776,7 @@
       "examples": [
         {
           "title": "SuccessResponse:",
-          "content": "   [\n  {\n    \"sid\": 7,\n    \"stoken\": \"FJd2JQGc9GsP\",\n    \"user\": {\n        \"name\": \"talha\",\n        \"email\": \"talha@gmail.com\",\n        \"username\": \"talha11\",\n        \"gender\": true,\n        \"role\": \"teacher\"\n    }\n}\n   ]",
+          "content": "   [\n  {\n    \"id\": 3,\n    \"name\": \"aqib\",\n    \"email\": \"wasim@gmail.com\",\n    \"username\": \"taha11\",\n    \"gender\": true,\n    \"phone\": \"123456\",\n    \"address\": \"Johr toen lahore\",\n    \"degree\": null,\n    \"year_of_completion\": \"2015\",\n    \"institution\": \"UOL\",\n    \"majors\": \"programing\",\n    \"expectation\": \"abc\",\n    \"martial_status\": 0,\n    \"age\": \"25 year\",\n    \"role\": \"student\",\n    \"tutor\": {\n        \"id\": 2,\n        \"education\": \"Mphil\",\n        \"experience\": \"1-2 years\",\n        \"availablity\": \"yes\",\n        \"user_id\": 3,\n        \"created_at\": \"2018-09-28T11:35:33.729Z\",\n        \"updated_at\": \"2018-09-28T14:40:10.895Z\",\n        \"fees\": \"5000\",\n        \"timing\": \"2018-09-27T23:00:00.000Z\"\n    },\n    \"subjects\": []\n  }\n}\n   ]",
           "type": "json"
         }
       ]
