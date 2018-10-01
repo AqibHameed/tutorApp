@@ -211,7 +211,7 @@ class UsersController < ApiControllerController
 
   def user_role_update
 
-    if @user.waiting_status == 0
+    #if @user.waiting_status == 0
 
       if params[:user_type].present?
 
@@ -221,17 +221,18 @@ class UsersController < ApiControllerController
                 @tutor = @user.build_tutor
 
                 if @tutor.save
-
-                  @request = Request.new(tutor: @tutor)
-
-                  if @request.save
-
-                    @user.update(waiting_status: 1)
-                    render status: :ok , json: {message: "Tutor Request successfully sent to admin"}
-                  else
-
-                    render status: :unprocessable_entity, json: {errors: @request.errors.full_messages}
-                  end
+                  @user.update(user_status: 1)
+                  render status: :ok , json: {message: "Become a tutor successfully"}
+                  # @request = Request.new(tutor: @tutor)
+                  #
+                  # if @request.save
+                  #
+                  #   @user.update(waiting_status: 1)
+                  #   render status: :ok , json: {message: "Tutor Request successfully sent to admin"}
+                  # else
+                  #
+                  #   render status: :unprocessable_entity, json: {errors: @request.errors.full_messages}
+                  # end
 
                 else
 
@@ -269,10 +270,10 @@ class UsersController < ApiControllerController
       else
           render status: :not_found , json: {message: "user type not found"}
       end
-    else
-
-        render status: :not_found , json: {message: "Request already sent"}
-    end
+    # else
+    #
+    #     render status: :not_found , json: {message: "Request already sent"}
+    # end
 
   end
 =begin
