@@ -73,7 +73,8 @@ class TutorController < ApiControllerController
 	def show
 		  @tutor = Tutor.find_by(id: params[:id])
 		  if @tutor.present?
-				render status: :ok , json: {tutor: @tutor}
+				render status: :ok, template: "tutor/show"
+				#render status: :ok , json: {tutor: @tutor}
 			else
 				render status: :unprocessable_entity, json: {errors: @tutor.errors.full_messages}
 			end

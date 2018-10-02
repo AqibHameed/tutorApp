@@ -139,6 +139,7 @@ class UsersController < ApiControllerController
 
 
   def updated
+      params[:timing] = params[:timing].present? ? params[:timing].to_time : params[:timing]
 
       if params[:user_type].present?
 
@@ -148,10 +149,6 @@ class UsersController < ApiControllerController
           if @tutor.present?
 
             if @tutor.update(tutor_params)
-              
-               if params[:timing].present?
-                 @tutor.update(timing: params[:timing].to_time)
-               end
 
                unless params[:subjects].nil?
                   @subject_from_user = params[:subjects]
@@ -403,7 +400,7 @@ class UsersController < ApiControllerController
     end  
 
     def tutor_params
-      params.permit(:experience)
+      params.permit(:experience, :timing)
     end
 
     def set_user

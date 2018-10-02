@@ -55,7 +55,9 @@ class Users::SessionsController < Devise::SessionsController
     #@user = User.find_for_database_authentication(username: params[:username])
 
     if @user
+
       @user.authentication_token =  Devise.friendly_token
+
       if @user.save
           if @user.valid_password?(params[:password])
             sign_in("user", @user)
