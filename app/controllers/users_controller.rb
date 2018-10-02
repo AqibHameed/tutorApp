@@ -142,24 +142,38 @@ class UsersController < ApiControllerController
 
       if params[:user_type].present?
 
-        if params[:user_type] == 1
+        if params[:user_type].to_i == 1
           @tutor = Tutor.find_by_id(params[:tutor_id])
 
           if @tutor.present?
 
             if @tutor.update(tutor_params)
+              
+               if params[:timing].present?
+                 @tutor.update(timing: params[:timing].to_time)
+               end
 
                unless params[:subjects].nil?
                   @subject_from_user = params[:subjects]
+
                   @subject_from_user.each do |s|
-                  @subject = Subject.new(name:s,approved:false)
-                    if @subject.save
-                      @tutor.subjects << @subject
-                    end
+
+                      sub = Subject.find_by_name(s)
+
+                      unless sub.present?
+                        @subject = Subject.new(name:s, approved:false)
+
+                          if @subject.save
+                            @tutor.subjects << @subject
+                          end
+
+                      end
+
                   end
+
                end
 
-               render status: :created, template: "users/user_role"
+               render status: :ok , json: {message: "attributes update sucesfully"}
             else
               render json: @tutor.errors, status: :unprocessable_entity
             end
@@ -168,7 +182,7 @@ class UsersController < ApiControllerController
             render status: :not_found , json: {message: "tutor id not found"}
           end
 
-        elsif params[:user_type] == 0
+        elsif params[:user_type].to_i == 0
           @student = Student.find_by_id(params[:student_id])
 
           if @student.present?
@@ -182,7 +196,8 @@ class UsersController < ApiControllerController
           else
             render status: :not_found , json: {message: "student id not found"}
           end
-
+        else
+          render status: :not_found , json: {message: "user type not match"}
         end
 
       else
@@ -388,7 +403,7 @@ class UsersController < ApiControllerController
     end  
 
     def tutor_params
-      params.permit(:education, :experience, :availablity , :fees, subject_ids:[])
+      params.permit(:experience)
     end
 
     def set_user
