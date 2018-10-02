@@ -5,14 +5,16 @@ class ContactsController < ApplicationController
       @news_letter = NewsLetter.new(news_letter_params)
 
       if @news_letter.save
-        render status: :ok , json: {message: "NewsLetter create successfully"}
+        render status: :ok , json: {message: "You have successfully subscribed to our latest news"}
       else
         render status: :unprocessable_entity, json: {errors: @news_letter.errors.full_messages}
       end
 
   end
 
-  def email_send
+  def contact_us
+      user_details = params[:user]
+      UserMailer.email_to_admin(user_details).deliver
   end
 
   private

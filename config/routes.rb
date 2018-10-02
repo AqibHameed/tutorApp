@@ -48,5 +48,5 @@ root "admins#first"
   end
   put  "/users/role", to:"users#updated"
   get 'contacts/news_letter'
-  get 'contacts/email_send'
+  post 'contacts/contact_us'
 end
