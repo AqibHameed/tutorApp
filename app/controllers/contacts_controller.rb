@@ -15,6 +15,7 @@ class ContactsController < ApplicationController
   def contact_us
       user_details = params[:user]
       UserMailer.email_to_admin(user_details).deliver
+      render status: :ok , json: {message: "Email sent successfully"}
   end
 
   private
