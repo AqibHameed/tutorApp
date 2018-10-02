@@ -17,7 +17,6 @@ class User < ApplicationRecord
   validates :email,presence: true ,uniqueness: true
   validates :username ,presence: true ,uniqueness: true
   validates :user_status ,presence: true ,inclusion: {in: USER_STATUS_RANGE} # 1 active, 0 blocked
-  validates :password, length: { minimum: 8 }
   accepts_nested_attributes_for :tutor, allow_destroy: true
   accepts_nested_attributes_for :student, allow_destroy: true
   #validates :gender  #true for male && false for female
