@@ -69,7 +69,7 @@ class StudentController < ApiControllerController
 			request = Request.where(student: @student, tutor: @tutor)
 
 			if request.present?
-				 render status: :found, json: {message: "Already send request"}
+				 render status: :found, json: {message: "Request sent already."}
 			else
 				@request = Request.new(student: @student, tutor_id: params[:tutor_id].to_i)
 
