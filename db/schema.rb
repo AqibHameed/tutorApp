@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_24_140419) do
+ActiveRecord::Schema.define(version: 2018_10_02_083752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,18 @@ ActiveRecord::Schema.define(version: 2018_09_24_140419) do
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
+
+  create_table "admin_users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_admin_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
   create_table "admins", force: :cascade do |t|
@@ -55,6 +67,15 @@ ActiveRecord::Schema.define(version: 2018_09_24_140419) do
     t.index ["student_id"], name: "index_jobs_on_student_id"
     t.index ["subject_id"], name: "index_jobs_on_subject_id"
     t.index ["tutor_id"], name: "index_jobs_on_tutor_id"
+  end
+
+  create_table "news_letters", force: :cascade do |t|
+    t.string "email"
+    t.integer "user_id"
+    t.integer "student_id"
+    t.integer "tutor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "requests", force: :cascade do |t|
@@ -124,6 +145,7 @@ ActiveRecord::Schema.define(version: 2018_09_24_140419) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "fees"
+    t.datetime "timing"
     t.index ["user_id"], name: "index_tutors_on_user_id"
   end
 
@@ -144,6 +166,15 @@ ActiveRecord::Schema.define(version: 2018_09_24_140419) do
     t.datetime "remember_created_at"
     t.string "authentication_token"
     t.integer "waiting_status", default: 0
+    t.string "phone"
+    t.string "address"
+    t.string "degree"
+    t.string "year_of_completion"
+    t.string "institution"
+    t.string "majors"
+    t.string "expectation"
+    t.integer "martial_status"
+    t.string "age"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
