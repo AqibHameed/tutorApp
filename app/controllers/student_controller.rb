@@ -87,6 +87,43 @@ class StudentController < ApiControllerController
 
 	end
 
+	def list_of_assign_persons
+
+		if params[:student_id].present?
+			 @student = Student.find_by(id: params[:student_id])
+
+			 if @student.present?
+				  @tutors = @student.tutors
+					if @tutors.present?
+						render status: :ok ,template: "requests/list_of_assign_persons"
+					else
+						render status: :ok ,tutors: @tutors
+					end
+
+			 else
+				 render status: :not_found , json: {message: "student not found"}
+			 end
+
+		elsif params[:tutor_id].present?
+			@tutor = Tutor.find_by(id: params[:tutor_id])
+
+			if @tutor.present?
+				@students = @tutor.students
+				if @students.present?
+					render status: :ok ,template: "requests/list_of_assign_persons"
+				else
+					render status: :ok ,students: @students
+				end
+				
+			else
+				render status: :not_found , json: {message: "tutor not found"}
+			end
+
+		else
+			  render status: :not_found , json: {message: "student or tutor id must exist"}
+		end
+	end
+
 
 =begin
  @apiVersion 1.0.0

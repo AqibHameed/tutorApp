@@ -36,6 +36,7 @@ root "admins#first"
   post "/students/create_request", to: "student#create_request"
   get  "/students/pending_requests", to:"student#check_request"
   get  "/students/student_hire_a_teacher", to:"student#student_hire_a_teacher"
+  get  "/students/list_of_assign_persons", to:"student#list_of_assign_persons"
   #get "/tutor", to: "tutor#index"
   resources :tutor
   put  "/tutor/request_approve", to: "tutor#approve_requests"
