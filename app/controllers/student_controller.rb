@@ -97,7 +97,7 @@ class StudentController < ApiControllerController
 					if @tutors.present?
 						render status: :ok ,template: "requests/list_of_assign_persons"
 					else
-						render status: :ok ,tutors: @tutors
+						render status: :ok ,json: {tutors: @tutors}
 					end
 
 			 else
@@ -112,7 +112,7 @@ class StudentController < ApiControllerController
 				if @students.present?
 					render status: :ok ,template: "requests/list_of_assign_persons"
 				else
-					render status: :ok ,students: @students
+					render status: :ok ,json: {students: @students}
 				end
 				
 			else
