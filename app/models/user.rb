@@ -5,6 +5,14 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, password_length: 8..20
   #rolify
   #associations
+  validate :password_complexity
+
+  def password_complexity
+    return if password.blank? || password =~ /^(?=.*?[A-Za-z])(?=.*\d)./
+
+    errors.add :password, 'Complexity requirement not met. include: 1 letter, 1 digit'
+  end
+
   has_one :auth , dependent: :destroy
   has_one :tutor , dependent: :destroy
   has_one :student , dependent: :destroy
