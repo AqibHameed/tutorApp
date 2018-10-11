@@ -139,6 +139,7 @@ class UsersController < ApiControllerController
 
 
   def updated
+
       params[:timing] = params[:timing].present? ? params[:timing].to_time : params[:timing]
 
       if params[:user_type].present?
@@ -157,12 +158,14 @@ class UsersController < ApiControllerController
 
                       sub = Subject.find_by_name(s)
 
-                      unless sub.present?
+                      if sub.present?
+                           @tutor.subjects << @subject
+                      else
                         @subject = Subject.new(name:s, approved:false)
 
-                          if @subject.save
-                            @tutor.subjects << @subject
-                          end
+                        if @subject.save
+                          @tutor.subjects << @subject
+                        end
 
                       end
 
