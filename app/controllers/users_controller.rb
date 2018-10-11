@@ -159,7 +159,7 @@ class UsersController < ApiControllerController
                       sub = Subject.find_by_name(s)
 
                       if sub.present?
-                           @tutor.subjects << @subject
+                           @tutor.subjects << sub unless @tutor.subjects.include?(sub)
                       else
                         @subject = Subject.new(name:s, approved:false)
 

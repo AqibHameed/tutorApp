@@ -76,7 +76,7 @@ class TutorController < ApiControllerController
 				render status: :ok, template: "tutor/show"
 				#render status: :ok , json: {tutor: @tutor}
 			else
-				render status: :unprocessable_entity, json: {errors: @tutor.errors.full_messages}
+				render status: :unprocessable_entity, json: {message: "tutor not exist"}
 			end
 	end
 
