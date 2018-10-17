@@ -50,7 +50,6 @@ class Users::SessionsController < Devise::SessionsController
    ]
 =end
   def create
-
     @user = User.find_by_username(params[:username])
     #@user = User.find_for_database_authentication(username: params[:username])
 
@@ -93,7 +92,8 @@ class Users::SessionsController < Devise::SessionsController
      ]
 =end
   def destroy
-    @user = User.find_by_authentication_token(params[:stoken])
+
+    @user = User.find_by_authentication_token(request.headers[:stoken])
 
     if @user.present?
       @user.update(authentication_token: nil)
@@ -115,3 +115,4 @@ class Users::SessionsController < Devise::SessionsController
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
 end
+

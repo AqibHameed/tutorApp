@@ -151,29 +151,33 @@ class UsersController < ApiControllerController
 
             if @tutor.update(tutor_params)
 
-               unless params[:subjects].nil?
+               if params[:subjects].present?
                   @subject_from_user = params[:subjects]
+                  begin
+                      @subject_from_user.each do |s|
 
-                  @subject_from_user.each do |s|
+                          sub = Subject.find_by_name(s)
 
-                      sub = Subject.find_by_name(s)
+                          if sub.present?
+                               @tutor.subjects << sub unless @tutor.subjects.include?(sub)
+                          else
+                            @subject = Subject.new(name:s, approved:false)
 
-                      if sub.present?
-                           @tutor.subjects << sub unless @tutor.subjects.include?(sub)
-                      else
-                        @subject = Subject.new(name:s, approved:false)
+                            if @subject.save
+                              @tutor.subjects << @subject
+                            end
 
-                        if @subject.save
-                          @tutor.subjects << @subject
-                        end
+                          end
 
                       end
-
+                      render status: :ok , json: {message: "attributes update sucesfully"}
+                  rescue => e
+                      render json: e.message, status: :bad_request
                   end
-
+               else
+                   render status: :ok , json: {message: "attributes update sucesfully"}
                end
 
-               render status: :ok , json: {message: "attributes update sucesfully"}
             else
               render json: @tutor.errors, status: :unprocessable_entity
             end
@@ -226,8 +230,6 @@ class UsersController < ApiControllerController
 
   def user_role_update
 
-    #if @user.waiting_status == 0
-
       if params[:user_type].present?
 
          if @user.update(user_params)
@@ -238,38 +240,19 @@ class UsersController < ApiControllerController
                 if @tutor.save
                   @user.update(user_status: 1)
                   render status: :ok , json: {message: "Become a tutor successfully"}
-                  # @request = Request.new(tutor: @tutor)
-                  #
-                  # if @request.save
-                  #
-                  #   @user.update(waiting_status: 1)
-                  #   render status: :ok , json: {message: "Tutor Request successfully sent to admin"}
-                  # else
-                  #
-                  #   render status: :unprocessable_entity, json: {errors: @request.errors.full_messages}
-                  # end
-
                 else
 
                   render status: :unprocessable_entity, json: {errors: @tutor.errors.full_messages}
                 end
 
             elsif  params[:user_type].to_i == 0
+
               @student = @user.build_student
 
               if @student.save
 
                 @user.update(user_status: 1)
                 render status: :ok , json: {message: "Become a student successfully"}
-                  #@request = Request.new(student: @student)
-
-                  # if @request.save
-                  #     @user.update(waiting_status: 1)
-                  #     render status: :ok , json: {message: "Student Request successfully sent to admin"}
-                  # else
-                  #     render status: :unprocessable_entity, json: {errors: @request.errors.full_messages}
-                  # end
-
               else
                   render status: :unprocessable_entity, json: {errors: @student.errors.full_messages}
               end
@@ -285,10 +268,6 @@ class UsersController < ApiControllerController
       else
           render status: :not_found , json: {message: "user type not found"}
       end
-    # else
-    #
-    #     render status: :not_found , json: {message: "Request already sent"}
-    # end
 
   end
 =begin
@@ -350,17 +329,13 @@ class UsersController < ApiControllerController
   def profile_update
 
     if params[:tutor_id].present?
-
+       params[:user][:tutor_attributes][:timing].present? ? params[:user][:tutor_attributes][:timing].to_time : params[:user][:tutor_attributes][:timing]
        @tutor = Tutor.find_by(id: params[:tutor_id])
 
        if @tutor.present?
 
-         if params[:user][:tutor_attributes][:timing].present?
-
-            @tutor.update(timing: params[:user][:tutor_attributes][:timing].to_time)
-         end
-
          if @user.update(user_tutor_params)
+
              render status: :ok, template: "users/profile_update"
          else
             render status: :unprocessable_entity, json: {errors: "tutor params not update"}
@@ -370,13 +345,10 @@ class UsersController < ApiControllerController
        end
 
     elsif params[:student_id].present?
+      params[:user][:student_attributes][:timing].present? ? params[:user][:student_attributes][:timing].to_time : params[:user][:student_attributes][:timing]
       @student = Student.find_by(id: params[:student_id])
 
       if @student.present?
-
-        if params[:user][:student_attributes][:timing].present?
-          @student.update(timing: params[:user][:student_attributes][:timing].to_time)
-        end
 
         if @user.update(user_student_params)
            render status: :ok, template: "users/profile_update"
@@ -417,10 +389,10 @@ class UsersController < ApiControllerController
 
     def user_tutor_params
 
-      params.require(:user).permit(:name, :gender, :phone, :address, :degree, :year_of_completion, :majors, :institution, :martial_status, :age, :expectation,tutor_attributes: [:id, :education, :experience, :fees ])
+      params.require(:user).permit(:name, :gender, :phone, :address, :degree, :year_of_completion, :majors, :institution, :martial_status, :age, :expectation,tutor_attributes: [:id, :education, :experience, :fees, :timing ])
     end
 
     def user_student_params
-      params.require(:user).permit(:name, :gender, :phone, :address, :degree, :year_of_completion, :majors, :institution, :martial_status, :age,  student_attributes: [:id, :price])
+      params.require(:user).permit(:name, :gender, :phone, :address, :degree, :year_of_completion, :majors, :institution, :martial_status, :age,  student_attributes: [:id, :price, :timing])
     end
 end
